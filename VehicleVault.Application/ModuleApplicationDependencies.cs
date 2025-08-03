@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using VehicleVault.Application.Features.UserFeature.Validations;
 using VehicleVault.Application.Services.Tokens;
 
 namespace VehicleVault.Application;
@@ -15,6 +17,7 @@ public static class ModuleApplicationDependencies
         services.AddScoped<ITokenService, TokenService>();
         
         // Register FLUENT VALIDATION
+        services.AddValidatorsFromAssemblyContaining<RegisterUserValidator>();
         
         return services;
     }
