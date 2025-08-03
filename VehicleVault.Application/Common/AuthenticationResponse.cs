@@ -1,0 +1,57 @@
+﻿using System.Net;
+using System.Text.Json.Serialization;
+
+namespace VehicleVault.Application.Common;
+public class AuthenticationResponse
+{
+    [JsonPropertyOrder(1)]
+    public HttpStatusCode HttpStatusCode { get; set; }
+
+    [JsonPropertyOrder(2)]
+    public DateTime Timestamp { get; set; }
+
+    [JsonPropertyOrder(3)]
+    public string Message { get; set; } = string.Empty;
+
+    [JsonPropertyOrder(4)]
+    public List<string>? Errors { get; set; }
+
+    [JsonPropertyOrder(5)]
+    public string? Username { get; set; }
+
+    [JsonPropertyOrder(6)]
+    public string? Email { get; set; }
+
+    [JsonPropertyOrder(7)]
+    public string Token { get; set; } = string.Empty;
+
+    [JsonPropertyOrder(8)]
+    public DateTime Expiration { get; set; }
+    
+    // Factory Method For Success Response
+    public static AuthenticationResponse Success(string username, string email, string token, DateTime expiration, string message = "Operation successful")
+    {
+        return new AuthenticationResponse
+        {
+            Username = username,
+            Email = email,
+            Token = token,
+            Expiration = expiration,
+            HttpStatusCode = HttpStatusCode.OK,
+            Timestamp = DateTime.UtcNow,
+            Message = message
+        };
+    }
+
+    // Factory Method For Failure Response
+    public static AuthenticationResponse Failure(string message, IEnumerable<string>? errors = null, HttpStatusCode statusCode = HttpStatusCode.BadRequest)
+    {
+        return new AuthenticationResponse
+        {
+            Message = message,
+            Errors = errors?.ToList(),
+            HttpStatusCode = statusCode,
+            Timestamp = DateTime.UtcNow
+        };
+    }
+}
