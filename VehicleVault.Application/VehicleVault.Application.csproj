@@ -23,8 +23,6 @@
       <Folder Include="Features\UserFeature\Commands\Requests\" />
       <Folder Include="Features\UserFeature\DTOs\" />
       <Folder Include="Features\UserFeature\Validations\" />
-      <Folder Include="ServiceContracts\IServices\" />
-      <Folder Include="ServiceContracts\Services\" />
     </ItemGroup>
 
 </Project>

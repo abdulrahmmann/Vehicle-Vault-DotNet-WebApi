@@ -37,7 +37,7 @@ public static class ModuleInfrastructureDependencies
 
             .AddUserStore<UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, int>>()
 
-            .AddRoles<RoleStore<ApplicationRole, ApplicationDbContext, int>>();
+            .AddRoleStore<RoleStore<ApplicationRole, ApplicationDbContext, int>>();
 
         
         // REGISTER UNIT OF WORK    

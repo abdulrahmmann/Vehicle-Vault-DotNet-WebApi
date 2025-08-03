@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using VehicleVault.Application.Common;
@@ -18,13 +19,11 @@ public class TokenService: ITokenService
     #endregion
 
     #region CONSTRUCTOR
-
     public TokenService(IConfiguration configuration)
     {
         _configuration = configuration;
     }
     #endregion
-    
     
     public AuthenticationResponse GenerateToken(ApplicationUser user)
     {
@@ -41,7 +40,7 @@ public class TokenService: ITokenService
             new Claim(ClaimTypes.NameIdentifier, user.Email!),
             new Claim(ClaimTypes.Name, user.UserName!),
         };
-
+        
         // Get The Secret Key.
         var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SECRET_KEY"]!));
 
@@ -64,8 +63,8 @@ public class TokenService: ITokenService
 
         // Return AuthenticationResponse.
         return AuthenticationResponse.Success(
-            username: user.UserName,
-            email: user.Email,
+            username: user.UserName!,
+            email: user.Email!,
             token: token,
             expiration: expiration,
             message: "Token Generated Successfully"
