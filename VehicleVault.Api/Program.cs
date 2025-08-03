@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
 using VehicleVault.Application;
+using VehicleVault.Application.Data;
 using VehicleVault.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -68,7 +69,10 @@ builder.Services.AddApiVersioning(config =>
     config.ApiVersionReader = new UrlSegmentApiVersionReader();
 });
 
+
 var app = builder.Build();
+
+await DbSeeder.SeedData(app);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
