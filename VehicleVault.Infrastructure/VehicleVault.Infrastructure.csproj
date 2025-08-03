@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\VehicleVault.Domain\VehicleVault.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

@@ -15,4 +15,10 @@
       <Folder Include="Controllers\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\VehicleVault.Application\VehicleVault.Application.csproj" />
+      <ProjectReference Include="..\VehicleVault.Domain\VehicleVault.Domain.csproj" />
+      <ProjectReference Include="..\VehicleVault.Infrastructure\VehicleVault.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>
