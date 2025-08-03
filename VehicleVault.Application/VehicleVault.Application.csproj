@@ -21,7 +21,6 @@
     <ItemGroup>
       <Folder Include="Features\UserFeature\Commands\Handler\" />
       <Folder Include="Features\UserFeature\Commands\Requests\" />
-      <Folder Include="Features\UserFeature\DTOs\" />
       <Folder Include="Features\UserFeature\Validations\" />
     </ItemGroup>
 
