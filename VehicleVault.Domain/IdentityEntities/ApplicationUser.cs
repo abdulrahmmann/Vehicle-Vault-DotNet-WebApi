@@ -5,6 +5,5 @@ namespace VehicleVault.Domain.IdentityEntities;
 
 public class ApplicationUser: IdentityUser<int>
 {
-    public string PersonName { get; set; } = null!;
     public ICollection<Vehicle> VehiclesCollection { get; init; } = new List<Vehicle>();
 }
