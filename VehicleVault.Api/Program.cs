@@ -1,10 +1,21 @@
+using VehicleVault.Application;
+using VehicleVault.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
+
 
 // Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+// REGISTER LAYERS DEPENDENCIES
+builder.Services
+    .AddInfrastructureDependencies(configuration)
+    .AddApplicationDependencies();
+
 
 var app = builder.Build();
 
