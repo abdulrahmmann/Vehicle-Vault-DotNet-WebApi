@@ -36,63 +36,64 @@ public class RegisterUserHandler: IRequestHandler<RegisterUserRequest, Authentic
     
     public async Task<AuthenticationResponse> Handle(RegisterUserRequest request, CancellationToken cancellationToken)
     {
-         try
-    {
-        var userRequest = request.UserDto;
+         try 
+         { 
+             var userRequest = request.UserDto;
 
-        // 1. Validate input DTO
-        var validationResult = await _validator.ValidateAsync(userRequest, cancellationToken);
-        if (!validationResult.IsValid)
-        {
-            var validationErrors = validationResult.Errors.Select(e => e.ErrorMessage).ToList();
-            _logger.LogWarning("Validation failed: {Errors}", string.Join(", ", validationErrors));
-            return AuthenticationResponse.Failure("Validation failed.", validationErrors, HttpStatusCode.BadRequest);
-        }
+            // 1. Validate input DTO
+            var validationResult = await _validator.ValidateAsync(userRequest, cancellationToken);
+            
+            if (!validationResult.IsValid)
+            {
+                var validationErrors = validationResult.Errors.Select(e => e.ErrorMessage).ToList();
+                _logger.LogWarning("Validation failed: {Errors}", string.Join(", ", validationErrors));
+                return AuthenticationResponse.Failure("Validation failed.", validationErrors, HttpStatusCode.BadRequest);
+            }
 
-        // 2. Check if email exists
-        if (await _userManager.FindByEmailAsync(userRequest.Email) is not null)
-        {
-            return AuthenticationResponse.Failure("Email already exists.", statusCode: HttpStatusCode.Conflict);
-        }
+            // 2. Check if email exists
+            if (await _userManager.FindByEmailAsync(userRequest.Email) is not null)
+            {
+                return AuthenticationResponse.Failure("Email already exists.", statusCode: HttpStatusCode.Conflict);
+            }
 
-        // 3. Check if username exists
-        if (await _userManager.FindByNameAsync(userRequest.UserName) is not null)
-        {
-            return AuthenticationResponse.Failure("Username already exists.", statusCode: HttpStatusCode.Conflict);
-        }
+            // 3. Check if username exists
+            if (await _userManager.FindByNameAsync(userRequest.UserName) is not null)
+            {
+                return AuthenticationResponse.Failure("Username already exists.", statusCode: HttpStatusCode.Conflict);
+            }
 
-        // 4. Create user
-        var newUser = new ApplicationUser
-        {
-            Email = userRequest.Email,
-            UserName = userRequest.UserName,
-            PhoneNumber = userRequest.PhoneNumber,
-        };
+            // 4. Create user
+            var newUser = new ApplicationUser
+            {
+                Email = userRequest.Email,
+                UserName = userRequest.UserName,
+                PhoneNumber = userRequest.PhoneNumber,
+            };
 
-        var createResult = await _userManager.CreateAsync(newUser, userRequest.Password);
-        if (!createResult.Succeeded)
-        {
-            var createErrors = createResult.Errors.Select(e => e.Description).ToList();
-            _logger.LogError("User creation failed: {Errors}", string.Join(", ", createErrors));
-            return AuthenticationResponse.Failure("User registration failed.", createErrors, HttpStatusCode.BadRequest);
-        }
+            var createResult = await _userManager.CreateAsync(newUser, userRequest.Password);
+            if (!createResult.Succeeded)
+            {
+                var createErrors = createResult.Errors.Select(e => e.Description).ToList();
+                _logger.LogError("User creation failed: {Errors}", string.Join(", ", createErrors));
+                return AuthenticationResponse.Failure("User registration failed.", createErrors, HttpStatusCode.BadRequest);
+            }
 
-        // 5. Assign role
-        var roleResult = await _userManager.AddToRoleAsync(newUser, "User");
-        if (!roleResult.Succeeded)
-        {
-            var roleErrors = roleResult.Errors.Select(e => e.Description).ToList();
-            _logger.LogWarning("Role assignment failed: {Errors}", string.Join(", ", roleErrors));
-            // Continue anyway, optional
-        }
+            // 5. Assign role
+            var roleResult = await _userManager.AddToRoleAsync(newUser, "User");
+            if (!roleResult.Succeeded)
+            {
+                var roleErrors = roleResult.Errors.Select(e => e.Description).ToList();
+                _logger.LogWarning("Role assignment failed: {Errors}", string.Join(", ", roleErrors));
+                // Continue anyway, optional
+            }
 
-        // 6. Generate token
-        var tokenResponse = _tokenService.GenerateToken(newUser);
-        tokenResponse.Email = newUser.Email;
-        tokenResponse.Username = newUser.UserName;
+            // 6. Generate token
+            var tokenResponse = _tokenService.GenerateToken(newUser);
+            tokenResponse.Email = newUser.Email;
+            tokenResponse.Username = newUser.UserName;
 
-        return tokenResponse;
-    }
+            return tokenResponse; 
+         }
          catch (Exception ex) 
          { 
              _logger.LogError(ex, "Unexpected error while registering user: {Email}", request.UserDto.Email); 

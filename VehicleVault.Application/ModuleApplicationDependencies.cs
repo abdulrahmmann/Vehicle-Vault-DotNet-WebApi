@@ -18,6 +18,7 @@ public static class ModuleApplicationDependencies
         
         // Register FLUENT VALIDATION
         services.AddValidatorsFromAssemblyContaining<RegisterUserValidator>();
+        services.AddValidatorsFromAssemblyContaining<LoginUserValidator>();
         
         return services;
     }
