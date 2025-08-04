@@ -7,6 +7,7 @@ using VehicleVault.Application.Common;
 using VehicleVault.Application.Features.UserFeature.Commands.Requests;
 using VehicleVault.Application.Features.UserFeature.DTOs;
 using VehicleVault.Application.Services.Tokens;
+using VehicleVault.Application.Services.Tokens.GenerateToken;
 using VehicleVault.Domain.IdentityEntities;
 
 namespace VehicleVault.Application.Features.UserFeature.Commands.Handler;
@@ -18,13 +19,13 @@ public class LoginUserHandler: IRequestHandler<LoginUserRequest, AuthenticationR
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly RoleManager<ApplicationRole> _roleManager;
     private readonly IValidator<LoginUserDto> _validator;
-    private readonly ITokenService _tokenService;
+    private readonly IGenerateTokenService _tokenService;
     private readonly ILogger<LoginUserHandler> _logger;
     #endregion
 
     #region Constructor
     public LoginUserHandler(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, 
-        RoleManager<ApplicationRole> roleManager, IValidator<LoginUserDto> validator, ITokenService tokenService, 
+        RoleManager<ApplicationRole> roleManager, IValidator<LoginUserDto> validator, IGenerateTokenService tokenService, 
         ILogger<LoginUserHandler> logger)
     {
         _userManager = userManager;
@@ -62,7 +63,7 @@ public class LoginUserHandler: IRequestHandler<LoginUserRequest, AuthenticationR
             }
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, userRequest.Password, lockoutOnFailure:false);
-
+            
             if (!result.Succeeded)
             {
                 return AuthenticationResponse.Failure("Invalid login attempt.", statusCode: HttpStatusCode.Unauthorized);

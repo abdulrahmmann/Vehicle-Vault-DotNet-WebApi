@@ -1,11 +1,9 @@
 ﻿using VehicleVault.Application.Common;
 using VehicleVault.Domain.IdentityEntities;
 
-namespace VehicleVault.Application.Services.Tokens;
+namespace VehicleVault.Application.Services.Tokens.GenerateToken;
 
-public interface ITokenService
+public interface IGenerateTokenService
 {
     AuthenticationResponse GenerateToken(ApplicationUser user);
-    
-    string GenerateRefreshToken();
 }

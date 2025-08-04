@@ -7,6 +7,7 @@ using VehicleVault.Application.Common;
 using VehicleVault.Application.Features.UserFeature.Commands.Requests;
 using VehicleVault.Application.Features.UserFeature.DTOs;
 using VehicleVault.Application.Services.Tokens;
+using VehicleVault.Application.Services.Tokens.GenerateToken;
 using VehicleVault.Domain.IdentityEntities;
 
 namespace VehicleVault.Application.Features.UserFeature.Commands.Handler;
@@ -18,12 +19,14 @@ public class RegisterUserHandler: IRequestHandler<RegisterUserRequest, Authentic
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly RoleManager<ApplicationRole> _roleManager;
     private readonly IValidator<RegisterUserDto> _validator;
-    private readonly ITokenService _tokenService;
+    private readonly IGenerateTokenService _tokenService;
     private readonly ILogger<RegisterUserHandler> _logger;
     #endregion
 
     #region Constructor
-    public RegisterUserHandler(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<ApplicationRole> roleManager, IValidator<RegisterUserDto> validator, ITokenService tokenService, ILogger<RegisterUserHandler> logger)
+    public RegisterUserHandler(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, 
+        RoleManager<ApplicationRole> roleManager, IValidator<RegisterUserDto> validator, IGenerateTokenService tokenService, 
+        ILogger<RegisterUserHandler> logger)
     {
         _userManager = userManager;
         _signInManager = signInManager;

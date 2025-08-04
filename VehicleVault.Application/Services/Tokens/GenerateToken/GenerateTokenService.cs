@@ -1,25 +1,22 @@
 ﻿using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using VehicleVault.Application.Common;
 using VehicleVault.Domain.IdentityEntities;
-using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
-namespace VehicleVault.Application.Services.Tokens;
+namespace VehicleVault.Application.Services.Tokens.GenerateToken;
 
-public class TokenService: ITokenService
+public class GenerateTokenService: IGenerateTokenService
 {
     #region INSTANCEs FIELDS
     private readonly IConfiguration _configuration;
     #endregion
 
     #region CONSTRUCTOR
-    public TokenService(IConfiguration configuration)
+    public GenerateTokenService(IConfiguration configuration)
     {
         _configuration = configuration;
     }
@@ -54,7 +51,7 @@ public class TokenService: ITokenService
             claims: claims,
             expires: expiration,
             signingCredentials: signinCredentials
-            );
+        );
 
         // Write Token.
         var tokenHandler = new JwtSecurityTokenHandler();
@@ -69,16 +66,5 @@ public class TokenService: ITokenService
             expiration: expiration,
             message: "Token Generated Successfully"
         );
-    }
-
-    public string GenerateRefreshToken()
-    {
-        var randomNumber = new byte[32];
-
-        using var randomNumberGenerator = RandomNumberGenerator.Create();
-        
-        randomNumberGenerator.GetBytes(randomNumber);
-
-        return Convert.ToBase64String(randomNumber);
     }
 }
