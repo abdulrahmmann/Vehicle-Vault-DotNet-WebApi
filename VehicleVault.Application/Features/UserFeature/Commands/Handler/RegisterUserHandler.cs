@@ -89,8 +89,6 @@ public class RegisterUserHandler: IRequestHandler<RegisterUserRequest, Authentic
 
             // 6. Generate token
             var tokenResponse = _tokenService.GenerateToken(newUser);
-            tokenResponse.Email = newUser.Email;
-            tokenResponse.Username = newUser.UserName;
 
             return tokenResponse; 
          }
