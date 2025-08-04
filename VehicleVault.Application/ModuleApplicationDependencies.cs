@@ -3,6 +3,7 @@ using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using VehicleVault.Application.Features.UserFeature.Validations;
 using VehicleVault.Application.Services.Tokens;
+using VehicleVault.Application.Services.Tokens.GeneratePrincipalJwtToken;
 using VehicleVault.Application.Services.Tokens.GenerateRefreshToken;
 using VehicleVault.Application.Services.Tokens.GenerateToken;
 
@@ -18,6 +19,7 @@ public static class ModuleApplicationDependencies
         // Register JWT Services
         services.AddScoped<IGenerateTokenService, GenerateTokenService>();
         services.AddScoped<IGenerateRefreshTokenService, GenerateRefreshTokenService>();
+        services.AddScoped<IGeneratePrincipalFromJwtTokenService, IGeneratePrincipalFromJwtTokenService>();
         
         // Register FLUENT VALIDATION
         services.AddValidatorsFromAssemblyContaining<RegisterUserValidator>();
