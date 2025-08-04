@@ -23,5 +23,19 @@ namespace VehicleVault.Controllers
 
             return NewResult(result);
         }
+        
+        [HttpPost]
+        [Route("login-user")]
+        public async Task<IActionResult> LoginUser([FromBody] LoginUserDto loginUserDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await Mediator.Send(new LoginUserRequest(loginUserDto));
+
+            return NewResult(result);
+        }
     }
 }
