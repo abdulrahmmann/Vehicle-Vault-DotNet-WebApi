@@ -6,7 +6,7 @@ public class GenerateRefreshTokenService: IGenerateRefreshTokenService
 {
     public string GenerateRefreshToken()
     {
-        var randomNumber = new byte[32];
+        var randomNumber = new byte[64];
 
         using var randomNumberGenerator = RandomNumberGenerator.Create();
         

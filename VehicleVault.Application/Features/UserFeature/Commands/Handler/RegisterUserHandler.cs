@@ -73,10 +73,10 @@ public class RegisterUserHandler: IRequestHandler<RegisterUserRequest, Authentic
                 PhoneNumber = userRequest.PhoneNumber,
             };
 
-            var createResult = await _userManager.CreateAsync(newUser, userRequest.Password);
-            if (!createResult.Succeeded)
+            var identityResult = await _userManager.CreateAsync(newUser, userRequest.Password);
+            if (!identityResult.Succeeded)
             {
-                var createErrors = createResult.Errors.Select(e => e.Description).ToList();
+                var createErrors = identityResult.Errors.Select(e => e.Description).ToList();
                 _logger.LogError("User creation failed: {Errors}", string.Join(", ", createErrors));
                 return AuthenticationResponse.Failure("User registration failed.", createErrors, HttpStatusCode.BadRequest);
             }
@@ -93,6 +93,11 @@ public class RegisterUserHandler: IRequestHandler<RegisterUserRequest, Authentic
             // 6. Generate token
             var tokenResponse = _tokenService.GenerateToken(newUser);
 
+            newUser.RefreshToken = tokenResponse.RefreshToken;
+            newUser.RefreshTokenExpiration = tokenResponse.RefreshTokenExpiration;
+            
+            await _userManager.UpdateAsync(newUser);
+            
             return tokenResponse; 
          }
          catch (Exception ex) 

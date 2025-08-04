@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using VehicleVault.Application.Common;
+using VehicleVault.Application.Services.Tokens.GenerateRefreshToken;
 using VehicleVault.Domain.IdentityEntities;
 
 namespace VehicleVault.Application.Services.Tokens.GenerateToken;
@@ -13,12 +14,14 @@ public class GenerateTokenService: IGenerateTokenService
 {
     #region INSTANCEs FIELDS
     private readonly IConfiguration _configuration;
+    private readonly IGenerateRefreshTokenService _refreshTokenService;
     #endregion
 
     #region CONSTRUCTOR
-    public GenerateTokenService(IConfiguration configuration)
+    public GenerateTokenService(IConfiguration configuration, IGenerateRefreshTokenService refreshTokenService)
     {
         _configuration = configuration;
+        _refreshTokenService = refreshTokenService;
     }
     #endregion
     
@@ -63,6 +66,8 @@ public class GenerateTokenService: IGenerateTokenService
             username: user.UserName!,
             email: user.Email!,
             token: token,
+            refreshToken: _refreshTokenService.GenerateRefreshToken(),
+            refreshTokenExpiration: DateTime.Now.AddMinutes(Convert.ToInt64(_configuration["RefreshToken:EXPIRATION_MINUTES"])),
             expiration: expiration,
             message: "Token Generated Successfully"
         );

@@ -25,17 +25,26 @@ public class AuthenticationResponse
     [JsonPropertyOrder(7)]
     public string Token { get; set; } = string.Empty;
 
-    [JsonPropertyOrder(8)]
+    [JsonPropertyOrder(8)] 
+    public string? RefreshToken { get; set; } = string.Empty;
+
+    [JsonPropertyOrder(9)]
+    public DateTime RefreshTokenExpiration { get; set; } 
+    
+    [JsonPropertyOrder(20)]
     public DateTime Expiration { get; set; }
     
     // Factory Method For Success Response
-    public static AuthenticationResponse Success(string username, string email, string token, DateTime expiration, string message = "Operation successful")
+    public static AuthenticationResponse Success(string username, string email, string token, string refreshToken, 
+        DateTime refreshTokenExpiration, DateTime expiration, string message = "Operation successful")
     {
         return new AuthenticationResponse
         {
             Username = username,
             Email = email,
             Token = token,
+            RefreshToken = refreshToken,
+            RefreshTokenExpiration = refreshTokenExpiration,
             Expiration = expiration,
             HttpStatusCode = HttpStatusCode.OK,
             Timestamp = DateTime.UtcNow,
