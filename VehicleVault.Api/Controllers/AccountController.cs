@@ -54,7 +54,18 @@ namespace VehicleVault.Controllers
 
             return NewResult(result);
         }
-
+        
+        [HttpGet]
+        [Route("users/list")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            
+            var result = await Mediator.Send(new GetAllUsersRequest());
+            
+            return NewResult(result);
+        }
+        
         [HttpGet]
         [Route("users/role={role}")]
         public async Task<IActionResult> GetUsersByRole(string role)

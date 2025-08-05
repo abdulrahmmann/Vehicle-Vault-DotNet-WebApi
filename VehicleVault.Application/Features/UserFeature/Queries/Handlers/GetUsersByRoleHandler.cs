@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using VehicleVault.Application.Common;
+using VehicleVault.Application.Constants;
 using VehicleVault.Application.Features.UserFeature.DTOs;
 using VehicleVault.Application.Features.UserFeature.Queries.Requests;
 using VehicleVault.Domain.IdentityEntities;
@@ -37,7 +38,8 @@ public class GetUsersByRoleHandler: IRequestHandler<GetUsersByRoleRequest, UserR
                     .Failure($"Role input is null: {userRequest}", HttpStatusCode.NotFound);
             }
 
-            if (userRequest.ToUpper() != "ADMIN" && userRequest.ToUpper() != "USER")
+            if (!userRequest.Equals(Roles.Admin, StringComparison.OrdinalIgnoreCase) 
+                && !userRequest.Equals(Roles.User, StringComparison.OrdinalIgnoreCase))
             {
                 return UserResponse<IEnumerable<GetUserDto>>
                     .Failure($"Role Request Input Validation Error: {userRequest}", HttpStatusCode.NotFound); 
@@ -51,14 +53,16 @@ public class GetUsersByRoleHandler: IRequestHandler<GetUsersByRoleRequest, UserR
             }
             
             var mappedUsers = users.Select(u => new GetUserDto(
-                Id:u.Id, 
+                Id:u.Id.ToString(), 
                 UserName:u.UserName,
                 Email:u.Email, 
                 PhoneNumber:u.PhoneNumber
                 ));
+
+            var usersList = mappedUsers.ToList();
             
             return UserResponse<IEnumerable<GetUserDto>>
-                .Success(mappedUsers.Count(), HttpStatusCode.OK, "Users retrieved successfully.", mappedUsers);
+                .Success(usersList.Count(), HttpStatusCode.OK, "Users retrieved successfully.", usersList);
         }
         catch (Exception e)
         {
