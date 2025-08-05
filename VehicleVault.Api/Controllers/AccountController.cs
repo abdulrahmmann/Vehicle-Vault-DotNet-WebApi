@@ -8,12 +8,13 @@ using VehicleVault.Application.Models;
 
 namespace VehicleVault.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/v1/[controller]")]
     [ApiController]
-    [AllowAnonymous]
     [ApiVersion("1.0")]
     public class AccountController : AppControllerBase
     {
+        [AllowAnonymous]
         [HttpPost]
         [Route("register-user")]
         public async Task<IActionResult> RegisterUser([FromBody] RegisterUserDto registerUserDto)
@@ -28,6 +29,7 @@ namespace VehicleVault.Controllers
             return NewResult(result);
         }
         
+        [AllowAnonymous]
         [HttpPost]
         [Route("login-user")]
         public async Task<IActionResult> LoginUser([FromBody] LoginUserDto loginUserDto)

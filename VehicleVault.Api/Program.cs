@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Text;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -58,8 +59,21 @@ builder.Services.AddAuthentication(options =>
         ValidIssuer = configuration["Jwt:Issuer"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SECRET_KEY"]!)),
 
+        RoleClaimType = ClaimTypes.Role,
+        
         ValidateLifetime = true,
     };
+    
+    options.Events = new JwtBearerEvents
+    {
+        OnAuthenticationFailed = context =>
+        {
+            var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Program>>();
+            logger.LogError("Token validation failed: {0}", context.Exception.Message);
+            return Task.CompletedTask;
+        }
+    };
+
 });
 
 // REGISTER API VERSIONING

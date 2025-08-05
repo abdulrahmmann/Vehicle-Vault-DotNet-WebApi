@@ -38,34 +38,44 @@ public class DbSeeder
             logger.LogInformation("USER role created.");
         }
 
-        // Create default admin user if not exists
-        var adminEmail = "admin@example.com";
-        var adminUser = await userManager.FindByEmailAsync(adminEmail);
-        if (adminUser == null)
+        // List of default admin users to create
+        var adminUsers = new List<(string UserName, string Email)>
         {
-            logger.LogInformation("Creating default admin user...");
-            adminUser = new ApplicationUser
-            {
-                UserName = "admin",
-                Email = adminEmail,
-                EmailConfirmed = true
-            };
+            ("admin1", "admin1@example.com"),
+            ("admin2", "admin2@example.com"),
+            ("admin3", "admin3@example.com"),
+        };
 
-            var result = await userManager.CreateAsync(adminUser, "Admin@123");
-
-            if (result.Succeeded)
+        foreach (var (userName, email) in adminUsers)
+        {
+            var adminUser = await userManager.FindByEmailAsync(email);
+            if (adminUser == null)
             {
-                await userManager.AddToRoleAsync(adminUser, Roles.Admin);
-                logger.LogInformation("Default admin user created and added to ADMIN role.");
+                logger.LogInformation($"Creating admin user: {userName}...");
+
+                adminUser = new ApplicationUser
+                {
+                    UserName = userName,
+                    Email = email,
+                    EmailConfirmed = true
+                };
+
+                var result = await userManager.CreateAsync(adminUser, "Admin@123");
+
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(adminUser, Roles.Admin);
+                    logger.LogInformation($"Admin user '{userName}' created and added to ADMIN role.");
+                }
+                else
+                {
+                    logger.LogError("Failed to create admin user {UserName}: {Errors}", userName, string.Join(", ", result.Errors.Select(e => e.Description)));
+                }
             }
             else
             {
-                logger.LogError("Failed to create default admin user: {Errors}", string.Join(", ", result.Errors.Select(e => e.Description)));
+                logger.LogInformation($"Admin user '{userName}' already exists.");
             }
-        }
-        else
-        {
-            logger.LogInformation("Default admin user already exists.");
         }
     }
 }
