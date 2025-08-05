@@ -19,7 +19,7 @@ public static class ModuleApplicationDependencies
         // Register JWT Services
         services.AddScoped<IGenerateTokenService, GenerateTokenService>();
         services.AddScoped<IGenerateRefreshTokenService, GenerateRefreshTokenService>();
-        services.AddScoped<IGeneratePrincipalFromJwtTokenService, IGeneratePrincipalFromJwtTokenService>();
+        services.AddScoped<IGeneratePrincipalFromJwtTokenService, GeneratePrincipalFromJwtTokenService>();
         
         // Register FLUENT VALIDATION
         services.AddValidatorsFromAssemblyContaining<RegisterUserValidator>();
