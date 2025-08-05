@@ -39,42 +39,49 @@ public class DbSeeder
         }
 
         // List of default admin users to create
-        var adminUsers = new List<(string UserName, string Email)>
+        var adminUsers = new List<(string UserName, string Email, string PhoneNumber)>
         {
-            ("admin1", "admin1@example.com"),
-            ("admin2", "admin2@example.com"),
-            ("admin3", "admin3@example.com"),
+            ("Admin.AbdulrahmanMustafa", "salim.vehicles.admin@admin.com", "0788362166"),
+            ("Admin.OmarAbdullah", "omar.vehicles.admin@admin.com", "0788659200"),
+            ("Admin.LaylaAmmar", "layla.vehicles.admin@admin.com", "0799452133"),
+            ("Admin.RayanFares", "zaid.vehicles.admin@admin.com", "0777521369"),
+            ("Admin.AseelHani", "nour.vehicles.admin@admin.com", "0784593022"),
         };
 
-        foreach (var (userName, email) in adminUsers)
+        foreach (var user in adminUsers)
         {
-            var adminUser = await userManager.FindByEmailAsync(email);
+            var adminUser = await userManager.FindByEmailAsync(user.Email);
+            
             if (adminUser == null)
             {
-                logger.LogInformation($"Creating admin user: {userName}...");
+                logger.LogInformation($"Creating admin user: {user.UserName}...");
 
                 adminUser = new ApplicationUser
                 {
-                    UserName = userName,
-                    Email = email,
-                    EmailConfirmed = true
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    
+                    EmailConfirmed = true,
+                    PhoneNumberConfirmed = true,
+                    LockoutEnabled = true,
                 };
 
-                var result = await userManager.CreateAsync(adminUser, "Admin@123");
+                var result = await userManager.CreateAsync(adminUser, "Admin_Password_123_@@##$$");
 
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(adminUser, Roles.Admin);
-                    logger.LogInformation($"Admin user '{userName}' created and added to ADMIN role.");
+                    logger.LogInformation($"Admin user '{user.UserName}' created and added to ADMIN role.");
                 }
                 else
                 {
-                    logger.LogError("Failed to create admin user {UserName}: {Errors}", userName, string.Join(", ", result.Errors.Select(e => e.Description)));
+                    logger.LogError("Failed to create admin user {UserName}: {Errors}", user.UserName, string.Join(", ", result.Errors.Select(e => e.Description)));
                 }
             }
             else
             {
-                logger.LogInformation($"Admin user '{userName}' already exists.");
+                logger.LogInformation($"Admin user '{user.UserName}' already exists.");
             }
         }
     }

@@ -104,24 +104,24 @@ namespace VehicleVault.Controllers
         
         [HttpPost]
         [Route("admin/create-user")]
-        public async Task<IActionResult> CreateUserByAdmin(CreateUserDto userDto)
+        public async Task<IActionResult> CreateUserByAdmin(RegisterUserDtoByAdmin userDtoByAdmin)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var result = await Mediator.Send(new CreateUserByAdminRequest(userDto));
+            var result = await Mediator.Send(new CreateUserByAdminRequest(userDtoByAdmin));
 
             return NewResult(result);
         }
         
         [HttpPost]
         [Route("admin/create-user-list")]
-        public async Task<IActionResult> CreateUsersListByAdmin(IEnumerable<CreateUserDto> usersDto)
+        public async Task<IActionResult> RegisterUsersList(IEnumerable<RegisterUserDtoByAdmin> usersDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var result = await Mediator.Send(new CreateUsersListByAdminRequest(usersDto));
+            var result = await Mediator.Send(new RegisterUsersListByAdminRequest(usersDto));
 
-            return NewResult(result);
+            return Ok(result);
         }
         
     }

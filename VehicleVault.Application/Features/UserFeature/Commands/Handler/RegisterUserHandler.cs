@@ -7,7 +7,6 @@ using VehicleVault.Application.Common;
 using VehicleVault.Application.Constants;
 using VehicleVault.Application.Features.UserFeature.Commands.Requests;
 using VehicleVault.Application.Features.UserFeature.DTOs;
-using VehicleVault.Application.Services.Tokens;
 using VehicleVault.Application.Services.Tokens.GenerateToken;
 using VehicleVault.Domain.IdentityEntities;
 

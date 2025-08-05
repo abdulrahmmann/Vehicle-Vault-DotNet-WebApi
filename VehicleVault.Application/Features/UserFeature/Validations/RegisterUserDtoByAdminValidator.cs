@@ -3,9 +3,9 @@ using VehicleVault.Application.Features.UserFeature.DTOs;
 
 namespace VehicleVault.Application.Features.UserFeature.Validations;
 
-public class RegisterUserValidator: AbstractValidator<RegisterUserDto>
+public class RegisterUserDtoByAdminValidator: AbstractValidator<RegisterUserDtoByAdmin>
 {
-    public RegisterUserValidator()
+    public RegisterUserDtoByAdminValidator()
     {
         RuleFor(user => user.UserName)
             .MinimumLength(6).WithMessage("UserName name must be at least 6 characters long.")
@@ -38,4 +38,3 @@ public class RegisterUserValidator: AbstractValidator<RegisterUserDto>
             .Equal(user => user.Password).WithMessage("Password and Confirm Password does not matched.");
     }
 }
-

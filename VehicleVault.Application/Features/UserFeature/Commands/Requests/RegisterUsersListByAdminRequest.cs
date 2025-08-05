@@ -4,4 +4,4 @@ using VehicleVault.Application.Features.UserFeature.DTOs;
 
 namespace VehicleVault.Application.Features.UserFeature.Commands.Requests;
 
-public record CreateUsersListByAdminRequest(IEnumerable<CreateUserDto> UsersDto): IRequest<UserResponse<Unit>>;
+public record RegisterUsersListByAdminRequest(IEnumerable<RegisterUserDtoByAdmin> UsersDto): IRequest<string>;

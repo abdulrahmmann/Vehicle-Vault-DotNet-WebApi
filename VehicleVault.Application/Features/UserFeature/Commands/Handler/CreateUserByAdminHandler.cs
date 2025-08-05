@@ -27,7 +27,7 @@ public class CreateUserByAdminHandler: IRequestHandler<CreateUserByAdminRequest,
     {
         try
         {
-            var userRequest = request.UserDto;
+            var userRequest = request.UserDtoByAdmin;
 
             if (userRequest == null)
             {
@@ -55,9 +55,9 @@ public class CreateUserByAdminHandler: IRequestHandler<CreateUserByAdminRequest,
         }
         catch (Exception e)
         {
-            _logger.LogError("Failed to add user with email: {Email}", request.UserDto.Email);
+            _logger.LogError("Failed to add user with email: {Email}", request.UserDtoByAdmin.Email);
             return UserResponse<Unit>
-                .Failure($"Failed to add user with email: {request.UserDto.Email}", HttpStatusCode.BadRequest);
+                .Failure($"Failed to add user with email: {request.UserDtoByAdmin.Email}", HttpStatusCode.BadRequest);
         }
     }
 }
