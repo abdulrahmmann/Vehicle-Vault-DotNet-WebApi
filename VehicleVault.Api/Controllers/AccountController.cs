@@ -8,7 +8,8 @@ using VehicleVault.Application.Models;
 
 namespace VehicleVault.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [AllowAnonymous]
+    // [Authorize(Roles = "Admin")]
     [Route("api/v1/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
@@ -66,6 +67,7 @@ namespace VehicleVault.Controllers
             return NewResult(result);
         }
         
+        [AllowAnonymous]
         [HttpGet]
         [Route("users/role={role}")]
         public async Task<IActionResult> GetUsersByRole(string role)
@@ -95,6 +97,29 @@ namespace VehicleVault.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var result = await Mediator.Send(new GetUserDetailsByEmailRequest(userEmail));
+
+            return NewResult(result);
+        }
+        
+        
+        [HttpPost]
+        [Route("admin/create-user")]
+        public async Task<IActionResult> CreateUserByAdmin(CreateUserDto userDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var result = await Mediator.Send(new CreateUserByAdminRequest(userDto));
+
+            return NewResult(result);
+        }
+        
+        [HttpPost]
+        [Route("admin/create-user-list")]
+        public async Task<IActionResult> CreateUsersListByAdmin(IEnumerable<CreateUserDto> usersDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var result = await Mediator.Send(new CreateUsersListByAdminRequest(usersDto));
 
             return NewResult(result);
         }

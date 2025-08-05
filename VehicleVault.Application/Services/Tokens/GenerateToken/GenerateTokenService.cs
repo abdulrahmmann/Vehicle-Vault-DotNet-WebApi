@@ -71,7 +71,8 @@ public class GenerateTokenService: IGenerateTokenService
         var tokenHandler = new JwtSecurityTokenHandler();
 
         var token = tokenHandler.WriteToken(tokenGenerator);
-
+        
+        
         // Return AuthenticationResponse.
         return AuthenticationResponse.Success(
             username: user.UserName!,

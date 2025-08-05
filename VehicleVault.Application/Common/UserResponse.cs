@@ -10,8 +10,11 @@ public class UserResponse<T>
 
     [JsonPropertyOrder(2)]
     public HttpStatusCode HttpStatusCode { get; set; }
-
+    
     [JsonPropertyOrder(3)]
+    public string? Email { get; set; }
+
+    [JsonPropertyOrder(4)]
     public string Message { get; set; }
 
     [JsonPropertyOrder(5)]
@@ -35,10 +38,22 @@ public class UserResponse<T>
         HttpStatusCode = httpStatusCode;
         Timestamp = DateTime.UtcNow;
     }
-    
+
+    public UserResponse(HttpStatusCode httpStatusCode, string? email, string message)
+    {
+        HttpStatusCode = httpStatusCode;
+        Email = email;
+        Message = message;
+    }
+
     public static UserResponse<T> Success(int? totalCount, HttpStatusCode httpStatusCode, string message, T? data)
     {
         return new UserResponse<T>(totalCount, httpStatusCode, message, data);
+    }
+    
+    public static UserResponse<T> Created(string? email, string message = "User Created Successfully")
+    {
+        return new UserResponse<T>(HttpStatusCode.Created, email, message);
     }
     
     public static UserResponse<T> Failure(string message, HttpStatusCode httpStatusCode)
