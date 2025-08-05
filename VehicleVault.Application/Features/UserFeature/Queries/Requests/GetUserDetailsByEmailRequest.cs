@@ -4,4 +4,4 @@ using VehicleVault.Application.Features.UserFeature.DTOs;
 
 namespace VehicleVault.Application.Features.UserFeature.Queries.Requests;
 
-public record GetUserDetailsByIdRequest(string Id): IRequest<UserResponse<GetUserDetailsDto>>;
+public record GetUserDetailsByEmailRequest(string Email): IRequest<UserResponse<GetUserDetailsDto>>;

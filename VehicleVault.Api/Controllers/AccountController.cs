@@ -75,5 +75,16 @@ namespace VehicleVault.Controllers
             return NewResult(result);
         }
         
+        [HttpGet]
+        [Route("users/email={userEmail}")]
+        public async Task<IActionResult> GetUsersDetailsByEmail(string userEmail)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var result = await Mediator.Send(new GetUserDetailsByEmailRequest(userEmail));
+
+            return NewResult(result);
+        }
+        
     }
 }
