@@ -50,6 +50,24 @@ namespace VehicleVault.Controllers
                 _ => StatusCode((int)response.HttpStatusCode, response)
             };
         }
+        
+        // 🔁 Overload for UserResponse
+        protected ObjectResult NewResult<T>(UserResponse<T> response)
+        {
+            return response.HttpStatusCode switch
+            {
+                HttpStatusCode.OK => Ok(response),
+                HttpStatusCode.Created => Created(string.Empty, response),
+                HttpStatusCode.Unauthorized => Unauthorized(response),
+                HttpStatusCode.BadRequest => BadRequest(response),
+                HttpStatusCode.NotFound => NotFound(response),
+                HttpStatusCode.Accepted => Accepted(response),
+                HttpStatusCode.UnprocessableEntity => UnprocessableEntity(response),
+                HttpStatusCode.Conflict => Conflict(response),
+                _ => StatusCode((int)response.HttpStatusCode, response)
+            };
+        }
+        
         #endregion
     }
 }

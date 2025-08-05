@@ -1,8 +1,10 @@
 using Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using VehicleVault.Application.Constants;
 using VehicleVault.Application.Features.UserFeature.Commands.Requests;
 using VehicleVault.Application.Features.UserFeature.DTOs;
+using VehicleVault.Application.Features.UserFeature.Queries.Requests;
 using VehicleVault.Application.Models;
 
 namespace VehicleVault.Controllers
@@ -48,6 +50,17 @@ namespace VehicleVault.Controllers
             if (ModelState.IsValid) return BadRequest();
 
             var result = await Mediator.Send(new GenerateNewAccessTokenRequest(tokenModel));
+
+            return NewResult(result);
+        }
+
+        [HttpGet]
+        [Route("users/role={role}")]
+        public async Task<IActionResult> GetUsersByRole(string role)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var result = await Mediator.Send(new GetUsersByRoleRequest(role));
 
             return NewResult(result);
         }

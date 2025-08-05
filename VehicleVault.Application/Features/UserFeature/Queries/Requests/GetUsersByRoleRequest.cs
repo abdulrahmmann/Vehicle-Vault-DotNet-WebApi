@@ -5,4 +5,4 @@ using VehicleVault.Application.Features.UserFeature.DTOs;
 
 namespace VehicleVault.Application.Features.UserFeature.Queries.Requests;
 
-public record GetUsersByRoleRequest(Roles Role): IRequest<IEnumerable<UserResponse<GetUserDto>>>;
+public record GetUsersByRoleRequest(string Role): IRequest<UserResponse<IEnumerable<GetUserDto>>>;
