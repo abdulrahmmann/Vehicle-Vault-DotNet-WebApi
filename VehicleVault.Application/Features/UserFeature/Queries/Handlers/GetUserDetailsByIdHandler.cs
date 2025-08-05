@@ -52,6 +52,7 @@ public class GetUserDetailsByIdHandler: IRequestHandler<GetUserDetailsByIdReques
                 UserName: user.UserName!,
                 Email: user.Email,
                 PhoneNumber: user.PhoneNumber,
+                Role:role,
                 RefreshToken:user.RefreshToken,
                 RefreshTokenExpiration:user.RefreshTokenExpiration
             );
