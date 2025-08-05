@@ -1,7 +1,6 @@
 using Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using VehicleVault.Application.Constants;
 using VehicleVault.Application.Features.UserFeature.Commands.Requests;
 using VehicleVault.Application.Features.UserFeature.DTOs;
 using VehicleVault.Application.Features.UserFeature.Queries.Requests;
@@ -64,5 +63,17 @@ namespace VehicleVault.Controllers
 
             return NewResult(result);
         }
+        
+        [HttpGet]
+        [Route("users/id={userId}")]
+        public async Task<IActionResult> GetUsersDetailsById(string userId)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var result = await Mediator.Send(new GetUserDetailsByIdRequest(userId));
+
+            return NewResult(result);
+        }
+        
     }
 }
