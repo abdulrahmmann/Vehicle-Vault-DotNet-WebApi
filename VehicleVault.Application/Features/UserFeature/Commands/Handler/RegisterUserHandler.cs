@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using VehicleVault.Application.Common;
+using VehicleVault.Application.Constants;
 using VehicleVault.Application.Features.UserFeature.Commands.Requests;
 using VehicleVault.Application.Features.UserFeature.DTOs;
 using VehicleVault.Application.Services.Tokens;
@@ -71,9 +72,14 @@ public class RegisterUserHandler: IRequestHandler<RegisterUserRequest, Authentic
                 Email = userRequest.Email,
                 UserName = userRequest.UserName,
                 PhoneNumber = userRequest.PhoneNumber,
+                
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true,
+                LockoutEnabled = true,
             };
 
             var identityResult = await _userManager.CreateAsync(newUser, userRequest.Password);
+            
             if (!identityResult.Succeeded)
             {
                 var createErrors = identityResult.Errors.Select(e => e.Description).ToList();
@@ -82,7 +88,8 @@ public class RegisterUserHandler: IRequestHandler<RegisterUserRequest, Authentic
             }
 
             // 5. Assign role
-            var roleResult = await _userManager.AddToRoleAsync(newUser, "User");
+            var roleResult = await _userManager.AddToRoleAsync(newUser, Roles.User);
+            
             if (!roleResult.Succeeded)
             {
                 var roleErrors = roleResult.Errors.Select(e => e.Description).ToList();

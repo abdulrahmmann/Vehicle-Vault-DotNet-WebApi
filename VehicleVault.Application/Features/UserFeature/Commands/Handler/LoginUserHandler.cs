@@ -61,12 +61,20 @@ public class LoginUserHandler: IRequestHandler<LoginUserRequest, AuthenticationR
             {
                 return AuthenticationResponse.Failure("Email Does not exists.", statusCode: HttpStatusCode.NotFound);
             }
+            
+            if (await _userManager.IsLockedOutAsync(user))
+                return AuthenticationResponse.Failure("Account is locked. Try again later.");
 
-            var result = await _signInManager.CheckPasswordSignInAsync(user, userRequest.Password, lockoutOnFailure:false);
+            var result = await _signInManager.CheckPasswordSignInAsync(user, userRequest.Password, lockoutOnFailure:true);
             
             if (!result.Succeeded)
             {
                 return AuthenticationResponse.Failure("Invalid login attempt.", statusCode: HttpStatusCode.Unauthorized);
+            }
+            
+            if (result.IsLockedOut)
+            {
+                return AuthenticationResponse.Failure("Account is locked due to multiple failed login attempts.");
             }
 
             var tokenResponse = _tokenService.GenerateToken(user);
