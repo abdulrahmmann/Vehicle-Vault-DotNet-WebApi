@@ -134,5 +134,16 @@ namespace VehicleVault.Controllers
 
             return Ok(result);
         }
+
+        [HttpDelete]
+        [Route("admin/delete-user")]
+        public async Task<IActionResult> DeleteUser([FromQuery] string email)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var result = await Mediator.Send(new DeleteUserRequest(email));
+
+            return Ok(result);
+        }
     }
 }
