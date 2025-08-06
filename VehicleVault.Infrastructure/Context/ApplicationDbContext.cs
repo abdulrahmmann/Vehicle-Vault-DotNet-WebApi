@@ -51,5 +51,7 @@ public class ApplicationDbContext: IdentityDbContext<ApplicationUser, Applicatio
             
             entity.ToView("VehiclesSummaryView");
         });
+        
+        builder.Entity<ApplicationUser>().HasQueryFilter(u => !u.IsDeleted);
     }
 }
