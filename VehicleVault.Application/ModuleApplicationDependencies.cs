@@ -25,6 +25,7 @@ public static class ModuleApplicationDependencies
         services.AddValidatorsFromAssemblyContaining<RegisterUserValidator>();
         services.AddValidatorsFromAssemblyContaining<LoginUserValidator>();
         services.AddValidatorsFromAssemblyContaining<RegisterUserDtoByAdminValidator>();
+        services.AddValidatorsFromAssemblyContaining<UpdateUserValidator>();
         
         return services;
     }

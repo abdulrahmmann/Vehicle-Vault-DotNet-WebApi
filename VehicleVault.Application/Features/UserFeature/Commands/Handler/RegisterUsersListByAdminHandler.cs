@@ -11,24 +11,16 @@ public class RegisterUsersListByAdminHandler : IRequestHandler<RegisterUsersList
 {
     #region Instance Fields
     private readonly UserManager<ApplicationUser> _userManager;
-    private readonly SignInManager<ApplicationUser> _signInManager;
-    private readonly RoleManager<ApplicationRole> _roleManager;
     private readonly IValidator<RegisterUserDtoByAdmin> _validator;
     private readonly IGenerateTokenService _tokenService;
     private readonly ILogger<RegisterUsersListByAdminHandler> _logger;
     #endregion
 
     #region Constructor
-    public RegisterUsersListByAdminHandler(UserManager<ApplicationUser> userManager,
-        SignInManager<ApplicationUser> signInManager,
-        RoleManager<ApplicationRole> roleManager,
-        IValidator<RegisterUserDtoByAdmin> validator,
-        IGenerateTokenService tokenService,
-        ILogger<RegisterUsersListByAdminHandler> logger)
+    public RegisterUsersListByAdminHandler(UserManager<ApplicationUser> userManager, IValidator<RegisterUserDtoByAdmin> validator,
+        IGenerateTokenService tokenService, ILogger<RegisterUsersListByAdminHandler> logger) 
     {
         _userManager = userManager;
-        _signInManager = signInManager;
-        _roleManager = roleManager;
         _validator = validator;
         _tokenService = tokenService;
         _logger = logger;
@@ -105,15 +97,15 @@ public class RegisterUsersListByAdminHandler : IRequestHandler<RegisterUsersList
             var failedCount = invalidUsersToRemove.Count;
 
             if (successCount == 0)
-                return $"❌ No users were registered. Failed emails: {string.Join(", ", invalidUsersToRemove)}";
+                return $"No users were registered. Failed emails: {string.Join(", ", invalidUsersToRemove)}";
 
-            return $"✅ Registered {successCount} users successfully. " +
-                   (failedCount > 0 ? $"❌ Failed to register {failedCount}: {string.Join(", ", invalidUsersToRemove)}" : "All users registered successfully.");
+            return $"Registered {successCount} users successfully. " +
+                   (failedCount > 0 ? $"Failed to register {failedCount}: {string.Join(", ", invalidUsersToRemove)}" : "All users registered successfully.");
         }
         catch (Exception e)
         {
             _logger.LogError(e, "Unexpected error while registering list of users");
-            return "❌ Unexpected server error. Please try again later.";
+            return "Unexpected server error. Please try again later.";
         }
     }
 }

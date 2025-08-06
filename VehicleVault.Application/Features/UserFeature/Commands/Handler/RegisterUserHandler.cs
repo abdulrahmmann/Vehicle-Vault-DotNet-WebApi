@@ -16,21 +16,16 @@ public class RegisterUserHandler: IRequestHandler<RegisterUserRequest, Authentic
 {
     #region Instance Fields
     private readonly UserManager<ApplicationUser> _userManager;
-    private readonly SignInManager<ApplicationUser> _signInManager;
-    private readonly RoleManager<ApplicationRole> _roleManager;
     private readonly IValidator<RegisterUserDto> _validator;
     private readonly IGenerateTokenService _tokenService;
     private readonly ILogger<RegisterUserHandler> _logger;
     #endregion
 
     #region Constructor
-    public RegisterUserHandler(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, 
-        RoleManager<ApplicationRole> roleManager, IValidator<RegisterUserDto> validator, IGenerateTokenService tokenService, 
-        ILogger<RegisterUserHandler> logger)
+    public RegisterUserHandler(UserManager<ApplicationUser> userManager, IValidator<RegisterUserDto> validator, 
+        IGenerateTokenService tokenService, ILogger<RegisterUserHandler> logger) 
     {
         _userManager = userManager;
-        _signInManager = signInManager;
-        _roleManager = roleManager;
         _validator = validator;
         _tokenService = tokenService;
         _logger = logger;

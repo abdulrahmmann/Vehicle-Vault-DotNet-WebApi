@@ -123,6 +123,16 @@ namespace VehicleVault.Controllers
 
             return Ok(result);
         }
-        
+
+        [HttpPut]
+        [Route("user/update-info")]
+        public async Task<IActionResult> UpdateUserInfo(string email, UpdateUserDto userDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var result = await Mediator.Send(new UpdateUserRequest(email, userDto));
+
+            return Ok(result);
+        }
     }
 }
