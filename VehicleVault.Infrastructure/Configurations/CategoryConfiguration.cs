@@ -21,5 +21,7 @@ public class CategoryConfiguration : BaseEntityConfiguration<Category>
         // Columns_Name_Length
 
         builder.Property(m => m.Name).HasColumnName("CategoryName").HasMaxLength(30);
+        
+        builder.Property(m => m.Description).HasColumnName("CategoryDescription").HasMaxLength(500);
     }
 }
