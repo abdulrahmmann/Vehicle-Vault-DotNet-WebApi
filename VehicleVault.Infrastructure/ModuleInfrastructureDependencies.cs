@@ -4,7 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VehicleVault.Domain.IdentityEntities;
+using VehicleVault.Domain.IRepository;
 using VehicleVault.Infrastructure.Context;
+using VehicleVault.Infrastructure.Repository;
 
 namespace VehicleVault.Infrastructure;
 
@@ -40,9 +42,10 @@ public static class ModuleInfrastructureDependencies
             .AddRoleStore<RoleStore<ApplicationRole, ApplicationDbContext, int>>();
 
         
-        // REGISTER UNIT OF WORK    
-        
         // REGISTER GENERIC REPOSITORY  
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        
+        // REGISTER UNIT OF WORK    
         
         // REGISTER REPOSITORIES    
         
