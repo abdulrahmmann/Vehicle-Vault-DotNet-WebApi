@@ -12,9 +12,13 @@ public class UnitOfWork: IUnitOfWork
     
     public ApplicationDbContext DbContext { get; }
     
-    public UnitOfWork(ApplicationDbContext dbContext)
+    public ICategoryRepository GetCategoryRepository { get; }
+
+    public UnitOfWork(ApplicationDbContext dbContext, Dictionary<Type, object> repositories, ICategoryRepository getCategoryRepository)
     {
         _dbContext = dbContext;
+        _repositories = repositories;
+        GetCategoryRepository = getCategoryRepository;
     }
 
     public IGenericRepository<T> GetRepository<T>() where T : class

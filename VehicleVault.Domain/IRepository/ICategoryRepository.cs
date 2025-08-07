@@ -20,4 +20,6 @@ public interface ICategoryRepository: IGenericRepository<Category>
     
     Task DeleteCategoryByName(string name);
     #endregion
+    
+    Task<bool> ExistsByNameAsync(string name);
 }

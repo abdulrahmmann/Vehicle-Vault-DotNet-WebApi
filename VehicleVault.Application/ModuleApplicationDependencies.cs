@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using VehicleVault.Application.Features.CategoryFeature.Validation;
 using VehicleVault.Application.Features.UserFeature.Validations;
 using VehicleVault.Application.Services.Tokens;
 using VehicleVault.Application.Services.Tokens.GeneratePrincipalJwtToken;
@@ -22,10 +23,14 @@ public static class ModuleApplicationDependencies
         services.AddScoped<IGeneratePrincipalFromJwtTokenService, GeneratePrincipalFromJwtTokenService>();
         
         // Register FLUENT VALIDATION
+        // USER VALIDATOR
         services.AddValidatorsFromAssemblyContaining<RegisterUserValidator>();
         services.AddValidatorsFromAssemblyContaining<LoginUserValidator>();
         services.AddValidatorsFromAssemblyContaining<RegisterUserDtoByAdminValidator>();
         services.AddValidatorsFromAssemblyContaining<UpdateUserValidator>();
+        
+        // CATEGORY VALIDATOR
+        services.AddValidatorsFromAssemblyContaining<CategoryValidator>();
         
         return services;
     }

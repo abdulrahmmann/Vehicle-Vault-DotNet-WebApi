@@ -54,4 +54,9 @@ public class CategoryRepository: GenericRepository<Category>, ICategoryRepositor
         categoryToDelete.SoftDeleteCategory();
         await _dbContext.SaveChangesAsync();
     }
+
+    public async Task<bool> ExistsByNameAsync(string name)
+    {
+        return await _dbContext.Categories.AnyAsync(c => c.Name == name && !c.IsDeleted);
+    }
 }
