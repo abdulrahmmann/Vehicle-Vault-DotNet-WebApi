@@ -7,6 +7,7 @@ using VehicleVault.Domain.IdentityEntities;
 using VehicleVault.Domain.IRepository;
 using VehicleVault.Infrastructure.Context;
 using VehicleVault.Infrastructure.Repository;
+using VehicleVault.Infrastructure.UOF;
 
 namespace VehicleVault.Infrastructure;
 
@@ -46,6 +47,7 @@ public static class ModuleInfrastructureDependencies
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         
         // REGISTER UNIT OF WORK    
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         
         // REGISTER REPOSITORIES    
         
