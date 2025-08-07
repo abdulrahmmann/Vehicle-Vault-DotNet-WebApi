@@ -50,7 +50,7 @@ public static class ModuleInfrastructureDependencies
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         
         // REGISTER REPOSITORIES    
-        
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
         
         return services;
     }

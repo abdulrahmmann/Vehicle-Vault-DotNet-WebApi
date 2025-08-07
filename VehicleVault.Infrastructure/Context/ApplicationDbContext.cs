@@ -53,5 +53,18 @@ public class ApplicationDbContext: IdentityDbContext<ApplicationUser, Applicatio
         });
         
         builder.Entity<ApplicationUser>().HasQueryFilter(u => !u.IsDeleted);
+        builder.Entity<Category>().HasQueryFilter(u => !u.IsDeleted);
+        builder.Entity<Body>().HasQueryFilter(u => !u.IsDeleted);
+        builder.Entity<Color>().HasQueryFilter(u => !u.IsDeleted);
+        builder.Entity<DriveType>().HasQueryFilter(u => !u.IsDeleted);
+        builder.Entity<Feature>().HasQueryFilter(u => !u.IsDeleted);
+        builder.Entity<FuelType>().HasQueryFilter(u => !u.IsDeleted);
+        builder.Entity<Make>().HasQueryFilter(u => !u.IsDeleted);
+        builder.Entity<Model>().HasQueryFilter(u => !u.IsDeleted);
+        builder.Entity<SubModel>().HasQueryFilter(u => !u.IsDeleted);
+        builder.Entity<TransmissionType>().HasQueryFilter(u => !u.IsDeleted);
+        builder.Entity<Vehicle>().HasQueryFilter(u => !u.IsDeleted);
+        builder.Entity<VehicleFeature>().HasQueryFilter(u => !u.IsDeleted);
+        builder.Entity<VehicleImage>().HasQueryFilter(u => !u.IsDeleted);
     }
 }

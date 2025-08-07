@@ -29,4 +29,12 @@ public class Category: BaseEntity
         this.Description = description;
     }
     #endregion
+
+    #region Soft Delete Category
+
+    public void SoftDeleteCategory()
+    {
+        this.IsDeleted = true;
+    }
+    #endregion
 }
