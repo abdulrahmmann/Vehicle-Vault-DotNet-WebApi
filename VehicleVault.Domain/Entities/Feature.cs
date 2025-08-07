@@ -4,8 +4,17 @@ namespace VehicleVault.Domain.Entities;
 
 public class Feature: BaseEntity
 {
-    public string Name { get; init; } = null!;
+    public string Name { get; private set; } = null!;
     
-    public ICollection<VehicleFeature> VehicleFeatures { get; init; } = new List<VehicleFeature>();
+    public bool IsDeleted { get; private set; } = false;
+    
+    public ICollection<VehicleFeature> VehicleFeatures { get; private set; } = new List<VehicleFeature>();
 
+    private Feature() { }
+
+    public Feature(string name, bool isDeleted)
+    {
+        Name = name;
+        IsDeleted = isDeleted;
+    }
 }

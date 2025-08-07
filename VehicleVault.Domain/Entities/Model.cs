@@ -4,18 +4,28 @@ namespace VehicleVault.Domain.Entities;
 
 public class Model: BaseEntity
 {
-    public string Name { get; init; } = null!;
+    public string Name { get; private set; } = null!;
+    
+    public bool IsDeleted { get; private set; } = false;
     
     // FOREIGN KEYS && NAVIGATIONS
     
     // Makes & Model -> ONE_TO_MANY 
-    public int MakeId { get; init; }
-    public Make Make { get; init; } = null!;
+    public int MakeId { get; private set; }
+    public Make Make { get; private set; } = null!;
     
     // Model & SubModels -> ONE_TO_MANY 
-    public ICollection<SubModel> SubModelsCollection { get; init; } = new  List<SubModel>();
+    public ICollection<SubModel> SubModelsCollection { get; private set; } = new  List<SubModel>();
     
     // Vehicle & Model -> ONE_TO_MANY
-    public ICollection<Vehicle> VehiclesCollection { get; init; }  = new List<Vehicle>();
+    public ICollection<Vehicle> VehiclesCollection { get; private set; }  = new List<Vehicle>();
+
+    private Model() { }
+
+    public Model(string name, Make make)
+    {
+        Name = name;
+        Make = make;
+    }
 }
 

@@ -5,71 +5,75 @@ namespace VehicleVault.Domain.Entities;
 
 public class Vehicle: BaseEntity
 {
-    public string Name { get; init; } = null!;
+    public string Name { get; private set; } = null!;
 
-    public short Year { get; init; }
+    public short Year { get; private set; }
     
-    public string Engine { get; init; } = null!;
+    public string Engine { get; private set; } = null!;
 
-    public short EngineCc { get; init; }
+    public short EngineCc { get; private set; }
 
-    public byte EngineCylinders { get; init; }
+    public byte EngineCylinders { get; private set; }
 
-    public decimal EngineLiterDisplay { get; init; }
+    public decimal EngineLiterDisplay { get; private set; }
 
-    public byte NumDoors { get; init; }
+    public byte NumDoors { get; private set; }
+    
+    public bool IsDeleted { get; private set; } = false;
     
     
     // FOREIGN KEYS && NAVIGATIONS
 
     // Vehicle & Body -> ONE_TO_MANY
-    public int BodyId { get; init; }
-    public Body Body { get; init; } = null!;
+    public int BodyId { get; private set; }
+    public Body Body { get; private set; } = null!;
 
     
     // Vehicle & DriveType -> ONE_TO_MANY
-    public int DriveTypeId { get; init; }
-    public DriveType DriveType { get; init; } = null!;
+    public int DriveTypeId { get; private set; }
+    public DriveType DriveType { get; private set; } = null!;
 
     
     // Vehicle & FuelType -> ONE_TO_MANY
-    public int FuelTypeId { get; init; }
-    public FuelType FuelType { get; init; } = null!;
+    public int FuelTypeId { get; private set; }
+    public FuelType FuelType { get; private set; } = null!;
 
     
     // Vehicle & Make -> ONE_TO_MANY 
-    public int MakeId { get; init; }
-    public Make Make { get; init; } = null!;
+    public int MakeId { get; private set; }
+    public Make Make { get; private set; } = null!;
 
     
     // Vehicle & Model -> ONE_TO_MANY  
-    public int ModelId { get; init; }
-    public Model Model { get; init; } = null!;
+    public int ModelId { get; private set; }
+    public Model Model { get; private set; } = null!;
 
     
     // Vehicle & SubModel -> ONE_TO_MANY 
-    public int SubModelId { get; init; }
-    public SubModel SubModel { get; init; } = null!;
+    public int SubModelId { get; private set; }
+    public SubModel SubModel { get; private set; } = null!;
     
     
     // Vehicle & Colors -> ONE_TO_MANY 
-    public int ColorId { get; init; }
-    public Color Color { get; init; } = null!;
+    public int ColorId { get; private set; }
+    public Color Color { get; private set; } = null!;
     
     
     // Vehicle & Category -> ONE_TO_MANY 
-    public int CategoryId { get; init; }
-    public Category Category { get; init; } = null!;
+    public int CategoryId { get; private set; }
+    public Category Category { get; private set; } = null!;
     
     // Vehicle & TransmissionType -> ONE_TO_MANY 
-    public int TransmissionTypeId { get; init; }
-    public TransmissionType  TransmissionType { get; init; } =  null!;
+    public int TransmissionTypeId { get; private set; }
+    public TransmissionType  TransmissionType { get; private set; } =  null!;
     
     
     // Vehicle & User -> ONE_TO_MANY 
-    public int UserId { get; init; }
-    public ApplicationUser User { get; init; } = null!;
+    public int UserId { get; private set; }
+    public ApplicationUser User { get; private set; } = null!;
     
-    public ICollection<VehicleFeature> VehicleFeatures { get; init; } = new List<VehicleFeature>();
-    public ICollection<VehicleImage> VehicleImages { get; init; } = new List<VehicleImage>();
+    public ICollection<VehicleFeature> VehicleFeatures { get; private set; } = new List<VehicleFeature>();
+    public ICollection<VehicleImage> VehicleImages { get; private set; } = new List<VehicleImage>();
+
+    private Vehicle() { }
 }

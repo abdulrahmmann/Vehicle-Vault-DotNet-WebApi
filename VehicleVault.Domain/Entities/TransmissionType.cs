@@ -4,9 +4,18 @@ namespace VehicleVault.Domain.Entities;
 
 public class TransmissionType: BaseEntity
 {
-    public string Name { get; init; } = null!;
+    public string Name { get; private set; } = null!;
+    
+    public bool IsDeleted { get; private set; } = false;
 
-    public ICollection<Vehicle> VehiclesCollection { get; init; } = new List<Vehicle>();
+    public ICollection<Vehicle> VehiclesCollection { get; private set; } = new List<Vehicle>();
+
+    private TransmissionType() { }
+
+    public TransmissionType(string name)
+    {
+        Name = name;
+    }
 }
 
 /*

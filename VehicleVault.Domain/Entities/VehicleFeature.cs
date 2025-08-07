@@ -1,13 +1,15 @@
-﻿using VehicleVault.Domain.Common;
-
-namespace VehicleVault.Domain.Entities;
+﻿namespace VehicleVault.Domain.Entities;
 
 public class VehicleFeature
 {
-    public Vehicle Vehicle { get; init; } = null!;
+    public Vehicle Vehicle { get; private set; } = null!;
 
-    public int VehicleId { get; init; }
-    public int FeatureId { get; init; }
+    public int VehicleId { get; private set; }
+    public int FeatureId { get; private set; }
     
-    public Feature Feature { get; init; } = null!;
+    public bool IsDeleted { get; private set; } = false;
+    
+    public Feature Feature { get; private set; } = null!;
+
+    private VehicleFeature() { }
 }
