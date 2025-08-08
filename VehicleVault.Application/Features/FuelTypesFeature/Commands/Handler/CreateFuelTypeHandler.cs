@@ -21,7 +21,7 @@ public class CreateFuelTypeHandler: IRequestHandler<CreateFuelTypeRequest, BaseR
         _logger = logger;
     }
     #endregion
-
+    
     public async Task<BaseResponse<Unit>> Handle(CreateFuelTypeRequest request, CancellationToken cancellationToken)
     {
         try
