@@ -18,4 +18,13 @@
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.7" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Features\MakesFeature\Commands\Handler\" />
+      <Folder Include="Features\MakesFeature\Commands\Requests\" />
+      <Folder Include="Features\MakesFeature\DTOs\" />
+      <Folder Include="Features\MakesFeature\Queries\Handler\" />
+      <Folder Include="Features\MakesFeature\Queries\Requests\" />
+      <Folder Include="Features\MakesFeature\Validation\" />
+    </ItemGroup>
+
 </Project>

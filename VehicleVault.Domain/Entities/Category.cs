@@ -31,7 +31,6 @@ public class Category: BaseEntity
     #endregion
 
     #region Soft Delete Category
-
     public void SoftDeleteCategory()
     {
         this.IsDeleted = true;
@@ -41,6 +40,5 @@ public class Category: BaseEntity
     {
         this.IsDeleted = false;
     }
-
     #endregion
 }

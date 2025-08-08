@@ -5,9 +5,11 @@ namespace VehicleVault.Infrastructure.UOF;
 
 public interface IUnitOfWork: IDisposable
 {
+    IGenericRepository<T> GetRepository<T>() where T : class;
+    
     ICategoryRepository GetCategoryRepository { get; }
     
-    IGenericRepository<T> GetRepository<T>() where T : class;
+    IMakesRepository  GetMakesRepository { get; }
     
     void SaveChanges();
 

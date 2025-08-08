@@ -12,13 +12,15 @@ public class UnitOfWork: IUnitOfWork
     #endregion
     
     public ICategoryRepository GetCategoryRepository { get; }
+    public IMakesRepository GetMakesRepository { get; }
 
-    
+
     #region Constructor
-    public UnitOfWork(ApplicationDbContext dbContext, ICategoryRepository getCategoryRepository)
+    public UnitOfWork(ApplicationDbContext dbContext, ICategoryRepository getCategoryRepository, IMakesRepository getMakesRepository)
     {
         _dbContext = dbContext; 
         GetCategoryRepository = getCategoryRepository;
+        GetMakesRepository = getMakesRepository;
         _repositories = new Dictionary<Type, object>();
     }
     #endregion

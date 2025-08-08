@@ -18,9 +18,27 @@ public class Make : BaseEntity
 
     private Make() { }
 
-    public Make(string name, bool isDeleted)
+    public Make(string name)
     {
         Name = name;
-        IsDeleted = isDeleted;
     }
+    
+    #region Update Category
+    public void UpdateMake(string name)
+    {
+        this.Name = name;
+    }
+    #endregion
+
+    #region Soft Delete Category
+    public void SoftDeleteMake()
+    {
+        this.IsDeleted = true;
+    }
+    
+    public void RestoreMake()
+    {
+        this.IsDeleted = false;
+    }
+    #endregion
 }

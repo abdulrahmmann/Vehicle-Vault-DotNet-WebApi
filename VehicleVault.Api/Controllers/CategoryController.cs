@@ -104,9 +104,9 @@ namespace VehicleVault.Controllers
         #endregion
 
 
-        #region PUT
-        [HttpPut("restore/{id:int}")]
-        public async Task<IActionResult> RestoreCategory(int id)
+        #region PUT & Patch
+        [HttpPatch("restore/{id:int}")]
+        public async Task<IActionResult> RestoreCategory([FromQuery] int id)
         {
             if (id <= 0)
                 return BadRequest("Id must be greater than zero.");
