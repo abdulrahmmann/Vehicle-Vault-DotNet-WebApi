@@ -55,6 +55,7 @@ namespace VehicleVault.Controllers
         }
         #endregion
         
+        
         #region POST
         [HttpPost]
         [Route("create-category")]
@@ -80,6 +81,23 @@ namespace VehicleVault.Controllers
             }
             
             var result = await Mediator.Send(new CreateCategoriesRangeRequest(categoriesDto));
+            
+            return NewResult(result);
+        }
+        #endregion
+
+
+        #region DELETE
+        [HttpDelete]
+        [Route("delete/{id}")]
+        public async Task<ActionResult> SoftDeleteCategory([FromQuery] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
+            var result = await Mediator.Send(new SoftDeleteCategoryRequest(id));
             
             return NewResult(result);
         }
