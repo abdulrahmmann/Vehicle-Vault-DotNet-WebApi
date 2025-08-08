@@ -6,21 +6,23 @@ namespace VehicleVault.Infrastructure.UOF;
 
 public class UnitOfWork: IUnitOfWork
 {
+    #region Instance Fields
     private readonly ApplicationDbContext  _dbContext;
-    
     private readonly Dictionary<Type, object> _repositories;
-    
-    public ApplicationDbContext DbContext { get; }
+    #endregion
     
     public ICategoryRepository GetCategoryRepository { get; }
 
-    public UnitOfWork(ApplicationDbContext dbContext, Dictionary<Type, object> repositories, ICategoryRepository getCategoryRepository)
+    
+    #region Constructor
+    public UnitOfWork(ApplicationDbContext dbContext, ICategoryRepository getCategoryRepository)
     {
-        _dbContext = dbContext;
-        _repositories = repositories;
+        _dbContext = dbContext; 
         GetCategoryRepository = getCategoryRepository;
+        _repositories = new Dictionary<Type, object>();
     }
-
+    #endregion
+    
     public IGenericRepository<T> GetRepository<T>() where T : class
     {
         var type = typeof(T);
@@ -39,4 +41,5 @@ public class UnitOfWork: IUnitOfWork
     public async Task SaveChangesAsync() => await _dbContext.SaveChangesAsync();
 
     public void Dispose() => _dbContext.Dispose();
+
 }
