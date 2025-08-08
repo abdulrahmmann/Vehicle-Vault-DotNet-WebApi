@@ -14,7 +14,6 @@ namespace VehicleVault.Controllers
     public class CategoryController : AppControllerBase
     {
         #region GET
-
         [HttpGet]
         [Route("category-list")]
         public async Task<IActionResult> GetAllCategories()
@@ -25,6 +24,32 @@ namespace VehicleVault.Controllers
             }
 
             var result = await Mediator.Send(new GetAllCategoriesRequest());
+
+            return NewResult(result);
+        }
+
+        [HttpGet("id")]
+        public async Task<IActionResult> GetCategoryById([FromQuery] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await Mediator.Send(new GetCategoryByIdRequest(id));
+
+            return NewResult(result);
+        }
+        
+        [HttpGet("name")]
+        public async Task<IActionResult> GetCategoryByName([FromQuery] string name)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await Mediator.Send(new GetCategoryByNameRequest(name));
 
             return NewResult(result);
         }
