@@ -6,6 +6,8 @@ public interface ICategoryRepository: IGenericRepository<Category>
 {
     #region GET 
     Task<Category> GetCategoryByName(string name);
+    
+    Task<Category> GetByIdIgnoreQueryFilterAsync(int id);
     #endregion
     
     #region POST 
@@ -18,7 +20,7 @@ public interface ICategoryRepository: IGenericRepository<Category>
     #region DELETE 
     Task DeleteCategoryById(int id);
     
-    Task DeleteCategoryByName(string name);
+    Task RestoreCategoryById(int id);
     #endregion
     
     Task<bool> ExistsByNameAsync(string name);

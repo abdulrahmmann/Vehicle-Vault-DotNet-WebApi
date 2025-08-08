@@ -36,5 +36,11 @@ public class Category: BaseEntity
     {
         this.IsDeleted = true;
     }
+    
+    public void RestoreCategory()
+    {
+        this.IsDeleted = false;
+    }
+
     #endregion
 }

@@ -18,6 +18,12 @@ public class CategoryRepository: GenericRepository<Category>, ICategoryRepositor
     }
     #endregion
 
+    public async Task<Category> GetByIdIgnoreQueryFilterAsync(int id)
+    { 
+        return await _dbContext.Categories
+            .IgnoreQueryFilters()
+            .FirstOrDefaultAsync(e => e.Id == id) ?? throw new InvalidOperationException();
+    }
 
     public async Task<Category> GetCategoryByName(string name)
     { 
@@ -31,7 +37,6 @@ public class CategoryRepository: GenericRepository<Category>, ICategoryRepositor
         if (categoryToUpdate == null) return;
 
         categoryToUpdate.UpdateCategory(category.Name, category.Description);
-        await _dbContext.SaveChangesAsync(); 
     }
 
 
@@ -42,17 +47,16 @@ public class CategoryRepository: GenericRepository<Category>, ICategoryRepositor
         if (categoryToDelete == null) return;
         
         categoryToDelete.SoftDeleteCategory();
-        await _dbContext.SaveChangesAsync();
     }
 
-    public async Task DeleteCategoryByName(string name)
+    public async Task RestoreCategoryById(int id)
     {
-        var categoryToDelete = await _dbContext.Categories.FirstOrDefaultAsync(c => c.Name == name);
-
-        if (categoryToDelete == null) return;
-
-        categoryToDelete.SoftDeleteCategory();
-        await _dbContext.SaveChangesAsync();
+        var categoryToRestore = await _dbContext.Categories.IgnoreQueryFilters()
+            .FirstOrDefaultAsync(c => c.Id == id);
+        
+        if (categoryToRestore == null) return;
+        
+        categoryToRestore.RestoreCategory();
     }
 
     public async Task<bool> ExistsByNameAsync(string name)

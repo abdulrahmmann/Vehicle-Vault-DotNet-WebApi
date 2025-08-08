@@ -102,5 +102,19 @@ namespace VehicleVault.Controllers
             return NewResult(result);
         }
         #endregion
+
+
+        #region PUT
+        [HttpPut("restore/{id:int}")]
+        public async Task<IActionResult> RestoreCategory(int id)
+        {
+            if (id <= 0)
+                return BadRequest("Id must be greater than zero.");
+
+            var result = await Mediator.Send(new RestoreCategoryRequest(id));
+
+            return NewResult(result);
+        }
+        #endregion
     }
 }
