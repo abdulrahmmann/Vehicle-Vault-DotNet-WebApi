@@ -39,7 +39,7 @@ public class MakesRepository: GenericRepository<Make>, IMakesRepository
         makeToUpdate.UpdateMake(make.Name);
     }
 
-    public async Task DeleteMakeById(int id)
+    public async Task SoftDeleteMakeById(int id)
     {
         var makeToDelete = await _dbContext.Makes.FirstOrDefaultAsync(m => m.Id == id);
         

@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Logging;
 using VehicleVault.Application.Common;
 using VehicleVault.Application.Features.CategoryFeature.Commands.Requests;
-using VehicleVault.Application.Features.CategoryFeature.Queries.Requests;
 using VehicleVault.Domain.Entities;
 using VehicleVault.Infrastructure.UOF;
 
@@ -47,9 +46,9 @@ public class SoftDeleteCategoryHandler: IRequestHandler<SoftDeleteCategoryReques
         }
         catch (Exception e)
         {
-            _logger.LogError("An error occured while retrieving category by Id {error}", e.Message);
+            _logger.LogError("An error occured while Soft Deleting category by Id {error}", e.Message);
             return BaseResponse<Unit>
-                .InternalError("An error occured while retrieving category by Id {error}: {e.Message}");
+                .InternalError("An error occured while Soft Deleting category by Id {error}: {e.Message}");
         }
     }
 }

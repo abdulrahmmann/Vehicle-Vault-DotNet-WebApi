@@ -14,7 +14,6 @@ namespace VehicleVault.Controllers
     public class MakesController : AppControllerBase
     {
         #region GET
-
         [HttpGet]
         [Route("makes-list")]
         public async Task<IActionResult> GerAllMakes()
@@ -73,7 +72,7 @@ namespace VehicleVault.Controllers
         #endregion
         
         
-        #region PUT
+        #region PUT & Patch
         [HttpPut()]
         [Route("update-make")]
         public async Task<IActionResult> UpdateMake([FromQuery] int id, [FromBody] UpdateMakeDto makeDto)
@@ -84,11 +83,33 @@ namespace VehicleVault.Controllers
 
             return NewResult(result);
         }
+        
+        [HttpPatch("restore-make")]
+        public async Task<IActionResult> RestoreCategory([FromQuery] int id)
+        {
+            if (id <= 0)
+                return BadRequest("Id must be greater than zero.");
+
+            var result = await Mediator.Send(new RestoreMakeRequest(id));
+
+            return NewResult(result);
+        }
         #endregion
         
         
         #region DELETE
-        
+        [HttpDelete("soft-delete-make")]
+        public async Task<ActionResult> SoftDeleteMake([FromQuery] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
+            var result = await Mediator.Send(new SoftDeleteMakeRequest(id));
+            
+            return NewResult(result);
+        }
         #endregion
     }
 }

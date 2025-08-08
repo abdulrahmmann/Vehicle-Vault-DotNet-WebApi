@@ -19,7 +19,7 @@ public interface IMakesRepository: IGenericRepository<Make>
     #endregion
     
     #region DELETE 
-    Task DeleteMakeById(int id);
+    Task SoftDeleteMakeById(int id);
     
     Task RestoreMakeById(int id);
     #endregion
