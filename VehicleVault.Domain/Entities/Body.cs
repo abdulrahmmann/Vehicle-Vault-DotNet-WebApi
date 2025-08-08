@@ -15,10 +15,9 @@ public class Body: BaseEntity
 
     private Body() { }
 
-    public Body(string name, bool isDeleted)
+    public Body(string name)
     {
         Name = name;
-        IsDeleted = isDeleted;
     }
     
     #region Update Body

@@ -19,11 +19,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\BodyFeature\Commands\Handlers\" />
-      <Folder Include="Features\BodyFeature\Commands\Requests\" />
-      <Folder Include="Features\BodyFeature\DTOs\" />
-      <Folder Include="Features\BodyFeature\Queries\Handlers\" />
-      <Folder Include="Features\BodyFeature\Queries\Requests\" />
       <Folder Include="Features\BodyFeature\Validation\" />
       <Folder Include="Features\MakesFeature\Validation\" />
     </ItemGroup>
