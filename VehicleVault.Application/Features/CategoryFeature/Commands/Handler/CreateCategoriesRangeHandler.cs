@@ -36,25 +36,13 @@ public class CreateCategoriesRangeHandler: IRequestHandler<CreateCategoriesRange
             
             foreach (var category in request.CategoriesDto)
             {
-                // check validation input
-                var validationResult = await _validator.ValidateAsync(category, cancellationToken);
-                if (!validationResult.IsValid)
-                {
-                    var validationErrors = string.Join(",", validationResult.Errors.Select(x => x.ErrorMessage));
-                    _logger.LogWarning("validation error {error}", validationErrors);
-                    invalidCategoriesToRemove.Add(category.Name);
-                    continue;
-                }
+                var isCategoryValid = await IsCategoryValidAsync(category, cancellationToken);
 
-                // check existing category
-                var existingCategory = await _unitOfWork.GetCategoryRepository.ExistsByNameAsync(category.Name);
-                if (existingCategory)
+                if (!isCategoryValid)
                 {
-                    _logger.LogWarning("Category with name: {name} already exists", category.Name);
                     invalidCategoriesToRemove.Add(category.Name);
                     continue;
                 }
-                
                 // add valid categories
                 validCategoriesToAdd.Add(category);
             }
@@ -91,5 +79,25 @@ public class CreateCategoriesRangeHandler: IRequestHandler<CreateCategoriesRange
             _logger.LogError("An error occured while creating category: {error}", e.Message);
             return BaseResponse<Unit>.InternalError($"An error occured while creating category: {e.Message}");
         }
+    }
+    
+    private async Task<bool> IsCategoryValidAsync(CategoryDto category, CancellationToken ct)
+    {
+        var validationResult = await _validator.ValidateAsync(category, ct);
+        if (!validationResult.IsValid)
+        {
+            _logger.LogWarning("Validation error for {Category}: {Errors}",
+                category.Name,
+                string.Join(",", validationResult.Errors.Select(e => e.ErrorMessage)));
+            return false;
+        }
+
+        if (await _unitOfWork.GetCategoryRepository.ExistsByNameAsync(category.Name))
+        {
+            _logger.LogWarning("Category already exists: {Name}", category.Name);
+            return false;
+        }
+
+        return true;
     }
 }

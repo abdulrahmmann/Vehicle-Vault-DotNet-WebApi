@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VehicleVault.Application.Features.CategoryFeature.Commands.Requests;
 using VehicleVault.Application.Features.CategoryFeature.DTOs;
+using VehicleVault.Application.Features.CategoryFeature.Queries.Requests;
 
 namespace VehicleVault.Controllers
 {
@@ -12,6 +13,24 @@ namespace VehicleVault.Controllers
     [ApiVersion("1.0")]
     public class CategoryController : AppControllerBase
     {
+        #region GET
+
+        [HttpGet]
+        [Route("category-list")]
+        public async Task<IActionResult> GetAllCategories()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await Mediator.Send(new GetAllCategoriesRequest());
+
+            return NewResult(result);
+        }
+        #endregion
+        
+        #region POST
         [HttpPost]
         [Route("create-category")]
         public async Task<ActionResult> CreateCategory([FromBody] CategoryDto categoryDto)
@@ -39,5 +58,6 @@ namespace VehicleVault.Controllers
             
             return NewResult(result);
         }
+        #endregion
     }
 }
