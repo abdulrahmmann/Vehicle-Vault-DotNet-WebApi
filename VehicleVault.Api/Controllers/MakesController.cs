@@ -74,7 +74,16 @@ namespace VehicleVault.Controllers
         
         
         #region PUT
-        
+        [HttpPut()]
+        [Route("update-make")]
+        public async Task<IActionResult> UpdateMake([FromQuery] int id, [FromBody] UpdateMakeDto makeDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var result = await Mediator.Send(new UpdateMakeRequest(id, makeDto));
+
+            return NewResult(result);
+        }
         #endregion
         
         
