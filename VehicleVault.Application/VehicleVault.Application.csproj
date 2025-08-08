@@ -20,9 +20,6 @@
 
     <ItemGroup>
       <Folder Include="Features\BodyFeature\Validation\" />
-      <Folder Include="Features\FuelTypesFeature\Commands\Handler\" />
-      <Folder Include="Features\FuelTypesFeature\Commands\Requests\" />
-      <Folder Include="Features\FuelTypesFeature\DTOs\" />
       <Folder Include="Features\FuelTypesFeature\Queries\Handler\" />
       <Folder Include="Features\FuelTypesFeature\Queries\Requests\" />
       <Folder Include="Features\FuelTypesFeature\Validation\" />
