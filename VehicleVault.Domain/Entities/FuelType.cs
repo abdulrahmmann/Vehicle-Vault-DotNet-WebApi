@@ -15,9 +15,27 @@ public class FuelType: BaseEntity
 
     private FuelType() { }
 
-    public FuelType(string name, bool isDeleted)
+    public FuelType(string name)
     {
         Name = name;
-        IsDeleted = isDeleted;
     }
+    
+    #region Update Body
+    public void UpdateFuelType(string name)
+    {
+        this.Name = name;
+    }
+    #endregion
+
+    #region Soft Delete Body
+    public void SoftDeleteFuelType()
+    {
+        this.IsDeleted = true;
+    }
+    
+    public void RestoreFuelType()
+    {
+        this.IsDeleted = false;
+    }
+    #endregion
 }

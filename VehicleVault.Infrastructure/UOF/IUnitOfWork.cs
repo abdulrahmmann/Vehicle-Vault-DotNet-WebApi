@@ -10,7 +10,10 @@ public interface IUnitOfWork: IDisposable
     ICategoryRepository GetCategoryRepository { get; }
     
     IMakesRepository  GetMakesRepository { get; }
+    
     IBodyRepository GetBodyRepository { get; }
+    
+    IFuelTypeRepository GetFuelTypeRepository { get; }
     
     void SaveChanges();
 
