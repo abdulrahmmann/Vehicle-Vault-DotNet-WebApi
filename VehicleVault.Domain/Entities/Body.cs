@@ -20,4 +20,23 @@ public class Body: BaseEntity
         Name = name;
         IsDeleted = isDeleted;
     }
+    
+    #region Update Body
+    public void UpdateBody(string name)
+    {
+        this.Name = name;
+    }
+    #endregion
+
+    #region Soft Delete Body
+    public void SoftDeleteBody()
+    {
+        this.IsDeleted = true;
+    }
+    
+    public void RestoreBody()
+    {
+        this.IsDeleted = false;
+    }
+    #endregion
 }

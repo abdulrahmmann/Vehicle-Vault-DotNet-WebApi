@@ -52,6 +52,7 @@ public static class ModuleInfrastructureDependencies
         // REGISTER REPOSITORIES    
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<IMakesRepository, MakesRepository>();
+        services.AddScoped<IBodyRepository, BodyRepository>();
         
         return services;
     }
