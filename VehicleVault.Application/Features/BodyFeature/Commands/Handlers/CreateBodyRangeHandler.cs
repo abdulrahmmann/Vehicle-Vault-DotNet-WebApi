@@ -40,9 +40,9 @@ public class CreateBodyRangeHandler: IRequestHandler<CreateBodyRangeRequest, Bas
                     continue;
                 }
                 
-                var isMakeExist = await _unitOfWork.GetMakesRepository.ExistsByNameAsync(body.Name);
+                var existingBody = await _unitOfWork.GetBodyRepository.ExistsByNameAsync(body.Name);
 
-                if (isMakeExist)
+                if (existingBody)
                 {
                     _logger.LogError("Body is already exists: {bodyName}", body.Name);
                     invalidBodyToRemove.Add(body.Name);
