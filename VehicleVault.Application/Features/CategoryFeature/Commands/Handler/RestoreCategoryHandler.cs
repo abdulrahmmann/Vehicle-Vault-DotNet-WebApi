@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using VehicleVault.Application.Common;
+using VehicleVault.Application.Features.CategoryFeature.Commands.Requests;
 using VehicleVault.Application.Features.CategoryFeature.Queries.Requests;
-using VehicleVault.Domain.Entities;
 using VehicleVault.Infrastructure.UOF;
 
-namespace VehicleVault.Application.Features.CategoryFeature.Queries.Handler;
+namespace VehicleVault.Application.Features.CategoryFeature.Commands.Handler;
 
 public class RestoreCategoryHandler: IRequestHandler<RestoreCategoryRequest, BaseResponse<Unit>>
 {
