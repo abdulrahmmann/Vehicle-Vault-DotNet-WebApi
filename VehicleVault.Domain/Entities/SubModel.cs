@@ -19,9 +19,38 @@ public class SubModel: BaseEntity
 
     private SubModel() { }
 
+    public SubModel(string name)
+    {
+        Name = name;
+    }
+
     public SubModel(string name, int modelId)
     {
         Name = name;
         ModelId = modelId;
     }
+    
+    #region Update SubModel
+    public void UpdateSubModel(string name)
+    {
+        Name = name;
+    }
+    public void UpdateSubModel(int modelId, string name)
+    {
+        ModelId = modelId;
+        Name = name;
+    }
+    #endregion
+
+    #region Soft Delete SubModel
+    public void SoftDeleteSubModel()
+    {
+        IsDeleted = true;
+    }
+    
+    public void RestoreSubModel()
+    {
+        IsDeleted = false;
+    }
+    #endregion
 }

@@ -1,5 +1,4 @@
 ﻿using VehicleVault.Domain.IRepository;
-using VehicleVault.Infrastructure.Context;
 
 namespace VehicleVault.Infrastructure.UOF;
 
@@ -19,7 +18,9 @@ public interface IUnitOfWork: IDisposable
     
     IDriveTypeRepository GetDriveTypeRepository { get; }
     
+    ISubModelRepository GetSubModelRepository { get; }
+    
     void SaveChanges();
-
+    
     Task SaveChangesAsync();
 }

@@ -33,22 +33,22 @@ public class Model: BaseEntity
         MakeId = makeId;
     }
 
-    #region Update Body
+    #region Update Model
     public void UpdateModel(string name)
     {
-        this.Name = name;
+        Name = name;
     }
     #endregion
 
-    #region Soft Delete Body
+    #region Soft Delete Model
     public void SoftDeleteModel()
     {
-        this.IsDeleted = true;
+        IsDeleted = true;
     }
     
     public void RestoreModel()
     {
-        this.IsDeleted = false;
+        IsDeleted = false;
     }
     #endregion
 }
