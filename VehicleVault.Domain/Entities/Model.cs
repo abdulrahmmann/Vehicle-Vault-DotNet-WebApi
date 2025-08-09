@@ -22,10 +22,34 @@ public class Model: BaseEntity
 
     private Model() { }
 
-    public Model(string name, Make make)
+    public Model(string name)
     {
         Name = name;
-        Make = make;
     }
+
+    public Model(string name, int makeId)
+    {
+        Name = name;
+        MakeId = makeId;
+    }
+
+    #region Update Body
+    public void UpdateModel(string name)
+    {
+        this.Name = name;
+    }
+    #endregion
+
+    #region Soft Delete Body
+    public void SoftDeleteModel()
+    {
+        this.IsDeleted = true;
+    }
+    
+    public void RestoreModel()
+    {
+        this.IsDeleted = false;
+    }
+    #endregion
 }
 
