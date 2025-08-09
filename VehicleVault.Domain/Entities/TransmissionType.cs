@@ -16,6 +16,25 @@ public class TransmissionType: BaseEntity
     {
         Name = name;
     }
+    
+    #region Update TransmissionType
+    public void UpdateTransmissionType(string name)
+    {
+        Name = name;
+    }
+    #endregion
+
+    #region Soft Delete TransmissionType
+    public void SoftDeleteTransmissionType()
+    {
+        IsDeleted = true;
+    }
+    
+    public void RestoreTransmissionType()
+    {
+        IsDeleted = false;
+    }
+    #endregion
 }
 
 /*

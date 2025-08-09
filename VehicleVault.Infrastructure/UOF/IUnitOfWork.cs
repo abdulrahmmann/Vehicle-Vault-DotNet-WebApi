@@ -20,6 +20,8 @@ public interface IUnitOfWork: IDisposable
     
     ISubModelRepository GetSubModelRepository { get; }
     
+    ITransmissionTypeRepository  GetTransmissionTypeRepository { get; }
+    
     void SaveChanges();
     
     Task SaveChangesAsync();

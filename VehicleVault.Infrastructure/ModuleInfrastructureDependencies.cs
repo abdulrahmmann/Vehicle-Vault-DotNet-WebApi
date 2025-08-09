@@ -57,6 +57,7 @@ public static class ModuleInfrastructureDependencies
         services.AddScoped<IDriveTypeRepository, DriveTypeRepository>();
         services.AddScoped<IModelsRepository, ModelsRepository>();
         services.AddScoped<ISubModelRepository, SubModelRepository>();
+        services.AddScoped<ITransmissionTypeRepository, TransmissionTypeRepository>();
         
         return services;
     }

@@ -18,10 +18,11 @@ public class UnitOfWork: IUnitOfWork
     public IModelsRepository GetModelsRepository { get; }
     public IDriveTypeRepository GetDriveTypeRepository { get; }
     public ISubModelRepository GetSubModelRepository { get; }
+    public ITransmissionTypeRepository GetTransmissionTypeRepository { get; }
 
 
     #region Constructor
-    public UnitOfWork(ApplicationDbContext dbContext, ICategoryRepository getCategoryRepository, IMakesRepository getMakesRepository, IBodyRepository getBodyRepository, IFuelTypeRepository getFuelTypeRepository, IDriveTypeRepository getDriveTypeRepository, IModelsRepository getModelsRepository, ISubModelRepository getSubModelRepository)
+    public UnitOfWork(ApplicationDbContext dbContext, ICategoryRepository getCategoryRepository, IMakesRepository getMakesRepository, IBodyRepository getBodyRepository, IFuelTypeRepository getFuelTypeRepository, IDriveTypeRepository getDriveTypeRepository, IModelsRepository getModelsRepository, ISubModelRepository getSubModelRepository, ITransmissionTypeRepository getTransmissionTypeRepository)
     {
         _dbContext = dbContext; 
         GetCategoryRepository = getCategoryRepository;
@@ -31,6 +32,7 @@ public class UnitOfWork: IUnitOfWork
         GetDriveTypeRepository = getDriveTypeRepository;
         GetModelsRepository = getModelsRepository;
         GetSubModelRepository = getSubModelRepository;
+        GetTransmissionTypeRepository = getTransmissionTypeRepository;
         _repositories = new Dictionary<Type, object>();
     }
     #endregion
