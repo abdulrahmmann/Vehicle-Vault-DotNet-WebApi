@@ -23,6 +23,15 @@
       <Folder Include="Features\DriveTypesFeature\Validation\" />
       <Folder Include="Features\FuelTypesFeature\Validation\" />
       <Folder Include="Features\MakesFeature\Validation\" />
+      <Folder Include="Features\ModelsFeature\Queries\Handler\" />
+      <Folder Include="Features\ModelsFeature\Queries\Requests\" />
+      <Folder Include="Features\ModelsFeature\Validation\" />
+      <Folder Include="Features\SubModelsFeature\Commands\Handler\" />
+      <Folder Include="Features\SubModelsFeature\Commands\Requests\" />
+      <Folder Include="Features\SubModelsFeature\DTOs\" />
+      <Folder Include="Features\SubModelsFeature\Queries\Handler\" />
+      <Folder Include="Features\SubModelsFeature\Queries\Requests\" />
+      <Folder Include="Features\SubModelsFeature\Validation\" />
     </ItemGroup>
 
 </Project>
