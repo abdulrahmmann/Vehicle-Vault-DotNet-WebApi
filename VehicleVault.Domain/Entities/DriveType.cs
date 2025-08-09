@@ -15,9 +15,27 @@ public class DriveType: BaseEntity
 
     private DriveType() { }
 
-    public DriveType(string name, bool isDeleted)
+    public DriveType(string name)
     {
         Name = name;
-        IsDeleted = isDeleted;
     }
+    
+    #region Update DriveType
+    public void UpdateDriveType(string name)
+    {
+        this.Name = name;
+    }
+    #endregion
+    
+    #region Soft Delete DriveType
+    public void SoftDeleteDriveType()
+    {
+        this.IsDeleted = true;
+    }
+    
+    public void RestoreDriveType()
+    {
+        this.IsDeleted = false;
+    }
+    #endregion
 }

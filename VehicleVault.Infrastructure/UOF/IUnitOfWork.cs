@@ -15,6 +15,8 @@ public interface IUnitOfWork: IDisposable
     
     IFuelTypeRepository GetFuelTypeRepository { get; }
     
+    IDriveTypeRepository GetDriveTypeRepository { get; }
+    
     void SaveChanges();
 
     Task SaveChangesAsync();
