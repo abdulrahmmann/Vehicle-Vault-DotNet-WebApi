@@ -20,6 +20,11 @@ public class ColorConfiguration : BaseEntityConfiguration<Color>
         
         // Columns_Name_Length
 
-        builder.Property(m => m.Name).HasColumnName("ColorCode").HasMaxLength(10);
+        builder.Property(m => m.Name).HasColumnName("ColorName").HasMaxLength(60);
+        
+        builder.Property(m => m.Code).HasColumnName("ColorCode").HasMaxLength(20);
+        
+        builder.Property(m => m.FinishType).HasColumnName("FinishType").HasMaxLength(60);
+        
     }
 }

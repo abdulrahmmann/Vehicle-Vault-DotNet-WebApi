@@ -6,16 +6,24 @@ public class Color: BaseEntity
 {
     public string Name { get; private set; } = null!;
     
+    public string Code { get; private set; } = null!;
+    
+    public string FinishType { get;  set; } = null!;
+    
+    public bool IsActive { get; private set; } 
+    
     public bool IsDeleted { get; private set; } = false;
     
     // Vehicle & Color -> ONE_TO_MANY
     public ICollection<Vehicle> VehiclesCollection { get; private set; }  = new List<Vehicle>();
 
     private Color() { }
-    
-    public Color(string name, bool isDeleted)
+
+    public Color(string name, string code, string finishType, bool isActive)
     {
         Name = name;
-        IsDeleted = isDeleted;
+        Code = code;
+        FinishType = finishType;
+        IsActive = isActive;
     }
 }
