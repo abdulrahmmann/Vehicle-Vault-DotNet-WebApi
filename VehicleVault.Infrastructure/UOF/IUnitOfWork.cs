@@ -1,10 +1,15 @@
 ﻿using VehicleVault.Domain.IRepository;
+using VehicleVault.Infrastructure.Context;
 
 namespace VehicleVault.Infrastructure.UOF;
 
 public interface IUnitOfWork: IDisposable
 {
     IGenericRepository<T> GetRepository<T>() where T : class;
+    
+    ApplicationDbContext dbContext { get; }
+    
+    IVehicleRepository  GetVehicleRepository { get; }
     
     ICategoryRepository GetCategoryRepository { get; }
     

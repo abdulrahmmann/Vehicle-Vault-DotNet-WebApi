@@ -11,7 +11,10 @@ public class UnitOfWork: IUnitOfWork
     private readonly Dictionary<Type, object> _repositories;
     #endregion
     
+    public ApplicationDbContext dbContext { get; }
     public ICategoryRepository GetCategoryRepository { get; }
+    
+    public IVehicleRepository GetVehicleRepository { get; }
     public IMakesRepository GetMakesRepository { get; }
     public IBodyRepository GetBodyRepository { get; }
     public IFuelTypeRepository GetFuelTypeRepository { get; }
@@ -22,9 +25,10 @@ public class UnitOfWork: IUnitOfWork
 
 
     #region Constructor
-    public UnitOfWork(ApplicationDbContext dbContext, ICategoryRepository getCategoryRepository, IMakesRepository getMakesRepository, IBodyRepository getBodyRepository, IFuelTypeRepository getFuelTypeRepository, IDriveTypeRepository getDriveTypeRepository, IModelsRepository getModelsRepository, ISubModelRepository getSubModelRepository, ITransmissionTypeRepository getTransmissionTypeRepository)
+    public UnitOfWork(ApplicationDbContext dbContext, ICategoryRepository getCategoryRepository, IMakesRepository getMakesRepository, IBodyRepository getBodyRepository, IFuelTypeRepository getFuelTypeRepository, IDriveTypeRepository getDriveTypeRepository, IModelsRepository getModelsRepository, ISubModelRepository getSubModelRepository, ITransmissionTypeRepository getTransmissionTypeRepository, IVehicleRepository getVehicleRepository)
     {
-        _dbContext = dbContext; 
+        _dbContext = dbContext;
+        this.dbContext = dbContext;
         GetCategoryRepository = getCategoryRepository;
         GetMakesRepository = getMakesRepository;
         GetBodyRepository = getBodyRepository;
@@ -33,6 +37,7 @@ public class UnitOfWork: IUnitOfWork
         GetModelsRepository = getModelsRepository;
         GetSubModelRepository = getSubModelRepository;
         GetTransmissionTypeRepository = getTransmissionTypeRepository;
+        GetVehicleRepository = getVehicleRepository;
         _repositories = new Dictionary<Type, object>();
     }
     #endregion
@@ -49,7 +54,7 @@ public class UnitOfWork: IUnitOfWork
 
         return (IGenericRepository<T>)_repositories[type];
     }
-    
+
     public void SaveChanges() => _dbContext.SaveChanges();
 
     public async Task SaveChangesAsync() => await _dbContext.SaveChangesAsync();

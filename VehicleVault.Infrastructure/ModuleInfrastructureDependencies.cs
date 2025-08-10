@@ -50,6 +50,8 @@ public static class ModuleInfrastructureDependencies
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         
         // REGISTER REPOSITORIES    
+        services.AddScoped<IVehicleRepository, VehicleRepository>();
+        
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<IMakesRepository, MakesRepository>();
         services.AddScoped<IBodyRepository, BodyRepository>();
@@ -58,6 +60,7 @@ public static class ModuleInfrastructureDependencies
         services.AddScoped<IModelsRepository, ModelsRepository>();
         services.AddScoped<ISubModelRepository, SubModelRepository>();
         services.AddScoped<ITransmissionTypeRepository, TransmissionTypeRepository>();
+        
         
         return services;
     }

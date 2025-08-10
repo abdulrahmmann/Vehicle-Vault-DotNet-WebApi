@@ -26,4 +26,26 @@ public class Color: BaseEntity
         FinishType = finishType;
         IsActive = isActive;
     }
+    
+    #region Update Color
+    public void UpdateColor(string name, string code, string finishType, bool isActive)
+    {
+        Name = name;
+        Code = code;
+        FinishType = finishType;
+        IsActive = isActive;
+    }
+    #endregion
+
+    #region Soft Delete Category
+    public void SoftDeleteColor()
+    {
+        this.IsDeleted = true;
+    }
+    
+    public void RestoreColor()
+    {
+        this.IsDeleted = false;
+    }
+    #endregion
 }

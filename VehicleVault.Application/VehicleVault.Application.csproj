@@ -20,6 +20,7 @@
 
     <ItemGroup>
       <Folder Include="Features\BodyFeature\Validation\" />
+      <Folder Include="Features\ColorsFeatures\Validation\" />
       <Folder Include="Features\DriveTypesFeature\Validation\" />
       <Folder Include="Features\FuelTypesFeature\Validation\" />
       <Folder Include="Features\MakesFeature\Validation\" />
@@ -32,6 +33,10 @@
       <Folder Include="Features\SubModelsFeature\Queries\Handler\" />
       <Folder Include="Features\SubModelsFeature\Queries\Requests\" />
       <Folder Include="Features\SubModelsFeature\Validation\" />
+      <Folder Include="Features\VehiclesFeature\Commands\Handler\" />
+      <Folder Include="Features\VehiclesFeature\Commands\Requests\" />
+      <Folder Include="Features\VehiclesFeature\Mapping\" />
+      <Folder Include="Features\VehiclesFeature\Validation\" />
     </ItemGroup>
 
 </Project>
