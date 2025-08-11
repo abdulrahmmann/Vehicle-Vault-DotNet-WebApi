@@ -37,6 +37,8 @@ public class VehicleConfiguration: BaseEntityConfiguration<Vehicle>
         
         builder.Property(v => v.Name).HasMaxLength(150).HasColumnName("Vehicle_Display_Name");
         
+        builder.Property(v => v.Description).HasMaxLength(2000).HasColumnName("Vehicle_Description");
+        
         
         // Relations
         

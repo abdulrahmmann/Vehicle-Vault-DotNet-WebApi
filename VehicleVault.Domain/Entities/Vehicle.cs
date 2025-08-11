@@ -19,6 +19,8 @@ public class Vehicle: BaseEntity
 
     public byte NumDoors { get; private set; }
     
+    public string Description { get; private set; } = null!;
+    
     public bool IsDeleted { get; private set; } = false;
     
     
@@ -74,6 +76,53 @@ public class Vehicle: BaseEntity
     
     public ICollection<VehicleFeature> VehicleFeatures { get; private set; } = new List<VehicleFeature>();
     public ICollection<VehicleImage> VehicleImages { get; private set; } = new List<VehicleImage>();
+    
+    private Vehicle(string description)
+    {
+        Description = description;
+    }
+    
+    public Vehicle(string name, short year, string engine, short engineCc, byte engineCylinders, decimal engineLiterDisplay, 
+        byte numDoors, bool isDeleted, int bodyId, int driveTypeId, int fuelTypeId, int makeId, int modelId, int subModelId, 
+        int colorId, int categoryId, int transmissionTypeId, int userId, string description)
+    {
+        Name = name;
+        Year = year;
+        Engine = engine;
+        EngineCc = engineCc;
+        EngineCylinders = engineCylinders;
+        EngineLiterDisplay = engineLiterDisplay;
+        NumDoors = numDoors;
+        IsDeleted = isDeleted;
+        BodyId = bodyId;
+        DriveTypeId = driveTypeId;
+        FuelTypeId = fuelTypeId;
+        MakeId = makeId;
+        ModelId = modelId;
+        SubModelId = subModelId;
+        ColorId = colorId;
+        CategoryId = categoryId;
+        TransmissionTypeId = transmissionTypeId;
+        UserId = userId;
+        Description = description;
+    }
+    
+    #region Update Vehicle
+    public void UpdateVehicle(string name)
+    {
+        Name = name;
+    }
+    #endregion
 
-    private Vehicle() { }
+    #region Soft Delete Vehicle
+    public void SoftDeleteTransmissionType()
+    {
+        IsDeleted = true;
+    }
+    
+    public void RestoreVehicle()
+    {
+        IsDeleted = false;
+    }
+    #endregion
 }
