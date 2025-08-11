@@ -22,6 +22,7 @@
       <Folder Include="Features\BodyFeature\Validation\" />
       <Folder Include="Features\ColorsFeatures\Validation\" />
       <Folder Include="Features\DriveTypesFeature\Validation\" />
+      <Folder Include="Features\FeaturesVFeature\Validation\" />
       <Folder Include="Features\FuelTypesFeature\Validation\" />
       <Folder Include="Features\MakesFeature\Validation\" />
       <Folder Include="Features\ModelsFeature\Queries\Handler\" />

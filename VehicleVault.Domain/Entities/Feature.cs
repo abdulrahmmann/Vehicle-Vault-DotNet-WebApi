@@ -12,9 +12,8 @@ public class Feature: BaseEntity
 
     private Feature() { }
 
-    public Feature(string name, bool isDeleted)
+    public Feature(string name)
     {
         Name = name;
-        IsDeleted = isDeleted;
     }
 }
