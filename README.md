@@ -29,7 +29,3 @@ ASP.NET Core Identity with JWT
 FluentValidation
 
 SQL Server (can be adapted)
-
-Automapper / Mapster (optional)
-
-Swagger/OpenAPI for API documentation
