@@ -16,4 +16,13 @@ public class Feature: BaseEntity
     {
         Name = name;
     }
+    
+    public static Feature CreateFeature(string name)
+    {
+        return new Feature
+        {
+            Name = name,
+            IsDeleted = false
+        };
+    }
 }

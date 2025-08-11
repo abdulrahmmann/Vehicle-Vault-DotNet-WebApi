@@ -17,4 +17,34 @@ public class VehicleImage: BaseEntity
     public Vehicle Vehicle { get; private set; } = null!;
 
     private VehicleImage() { }
+
+    public static VehicleImage CreateVehicleImage(string imageUrl, bool isPrimary, int vehicleId)
+    {
+        return new VehicleImage
+        {
+            ImageUrl = imageUrl,
+            IsPrimary = isPrimary,
+            VehicleId = vehicleId
+        };
+    }
+    
+    public void SetAsPrimary()
+    {
+        IsPrimary = true;
+    }
+
+    public void RemoveAsPrimary()
+    {
+        IsPrimary = false;
+    }
+    
+    public void SoftDelete()
+    {
+        IsDeleted = true;
+    }
+
+    public void Restore()
+    {
+        IsDeleted = false;
+    }
 }

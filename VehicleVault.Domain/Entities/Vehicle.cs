@@ -77,10 +77,7 @@ public class Vehicle: BaseEntity
     public ICollection<VehicleFeature> VehicleFeatures { get; private set; } = new List<VehicleFeature>();
     public ICollection<VehicleImage> VehicleImages { get; private set; } = new List<VehicleImage>();
     
-    private Vehicle(string description)
-    {
-        Description = description;
-    }
+    private Vehicle() {}
     
     public Vehicle(string name, short year, string engine, short engineCc, byte engineCylinders, decimal engineLiterDisplay, 
         byte numDoors, bool isDeleted, int bodyId, int driveTypeId, int fuelTypeId, int makeId, int modelId, int subModelId, 
@@ -107,10 +104,23 @@ public class Vehicle: BaseEntity
         Description = description;
     }
     
-    #region Update Vehicle
-    public void UpdateVehicle(string name)
+    
+    #region Add Vehicles
+
+    private void AddFeature(int featureId)
     {
-        Name = name;
+        if (!VehicleFeatures.Any(vf => vf.FeatureId == featureId && !vf.IsDeleted))
+        {
+            VehicleFeatures.Add(VehicleFeature.CreateVehicleFeature(Id, featureId));
+        }
+    }
+
+    public void AddFeatures(IEnumerable<int> featureIds)
+    {
+        foreach (var featureId in featureIds)
+        {
+            AddFeature(featureId);
+        }
     }
     #endregion
 
